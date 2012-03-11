@@ -1,0 +1,47 @@
+/*!
+ *  Syntax Highlighting based on 'Snippet' by SteamDev (http://steamdev.com/snippet)
+ *  http://syntaxhighlight.in v1.0.0
+ *  Date: Sunday Jan 1, 2012
+ *
+ * .sh_sourceCode is the <pre> 
+ */
+
+.sh_easter{background:none; padding:0; margin:0; border:0 none;}.sh_easter .sh_sourceCode{background-color:#ffff80;color:#2C7B34;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_keyword{color:#1d45d6;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_type{color:#ed0f55;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_string{color:#ca4be3;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_regexp{color:#ca4be3;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_specialchar{color:#ca4be3;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_comment{color:#24c815;font-weight:normal;font-style:italic;}.sh_easter .sh_sourceCode .sh_number{color:#e11a70;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_preproc{color:#1583b1;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_symbol{color:#fa4700;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_function{color:#1d45d6;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_cbracket{color:#fa4700;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_url{color:#ca4be3;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_date{color:#1d45d6;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_time{color:#1d45d6;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_file{color:#1d45d6;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_ip{color:#ca4be3;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_name{color:#ca4be3;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_variable{color:#26aae7;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_oldfile{color:#ca4be3;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_newfile{color:#ca4be3;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_difflines{color:#1d45d6;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_selector{color:#26aae7;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_property{color:#1d45d6;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_value{color:#ca4be3;font-weight:normal;font-style:normal;}
+
+    .snippet-textonly:focus {background:#333 !important;color:#fff !important;}
+    .snippet-wrap pre { margin:5px 0; padding:0;}
+    .snippet-wrap .snippet-menu a, .snippet-wrap .snippet-hide a {padding:0 5px;}
+    .snippet-wrap pre.sh_sourceCode{padding:1em;line-height:1.8em;overflow:auto;position:relative;-moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;box-shadow: 2px 2px 5px #000;-moz-box-shadow: 2px 2px 5px #000;-webkit-box-shadow: 2px 2px 5px #000;}
+    .snippet-wrap pre.snippet-textonly {padding:2em;}
+    .snippet-wrap pre.snippet-formatted {*padding:2em 1em;}
+    .snippet-reveal pre.sh_sourceCode {padding:.5em 1em; text-align:right;}
+    .snippet-wrap .snippet-num li{padding-left:1.5em;}
+    .snippet-wrap .snippet-no-num{list-style:none; padding:0; margin:0;}
+    .snippet-wrap .snippet-no-num li {list-style:none; padding-left:0;}
+    .snippet-wrap .snippet-num {margin:1em 0 1em 1em; padding-left:3em;}
+    .snippet-wrap .snippet-num li {list-style:decimal-leading-zero outside none;}
+    .snippet-wrap .snippet-no-num li.box {padding:0 6px; margin-left:-6px;}
+    .snippet-wrap .snippet-num li.box {border:1px solid; list-style-position:inside; margin-left:-3em; padding-left:6px;}
+    .snippet-wrap .snippet-num li.box {*margin-left:-2.4em;}
+    .snippet-wrap li.box-top {border-width:1px 1px 0 !important;}
+    .snippet-wrap li.box-bot {border-width:0 1px 1px !important;}
+    .snippet-wrap li.box-mid {border-width:0 1px !important;}
+    .snippet-wrap .snippet-num li .box-sp {width:18px; display:inline-block;}
+    .snippet-wrap .snippet-num li .box-sp {*width:27px;}
+    .snippet-wrap .snippet-no-num li.box {border:1px solid;}
+    .snippet-wrap .snippet-no-num li .box-sp {display:none;}
+    /**
+     * STYLE the menu and toggle link here
+     */
+    .snippet-container .snippet-menu {border-radius:3px;background:#fff;padding:2px 5px 3px;display:inline-block;*display:inline;zoom:1;}
+    .snippet-container .sh_url,
+    .snippet-wrap .snippet-toggle {
+        text-decoration:none !important;font:12px sans-serif !important;
+    }
+    .snippet-window {border-right-width:1px;border-right-style:solid}
+    .snippet-wrap .snippet-toggle  {display:block;}
+    /**
+     * toggle for the collapse options
+     */
+    .snippet-hide pre{background:#fff !important;}
+    .snippet-hide pre a{color:#333 !important;}
