@@ -1,0 +1,8 @@
+.DS_Store
+*.swp
+*.jpg
+*.png
+*.gif
+.htaccess
+.idea
+test
