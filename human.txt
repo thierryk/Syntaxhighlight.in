@@ -12,7 +12,7 @@
 
 /* SITE */
 
-   Last update: 2012/02/04
+   Last update: 2013/11/06
    Language: en-us
    Doctype: HTML5
    IDE: WebStorm, Fireworks
