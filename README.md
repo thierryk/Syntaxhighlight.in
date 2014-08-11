@@ -5,7 +5,7 @@ See [syntaxhighlight.in](http://syntaxhighlight.in)
 
 ## Background
 
-We want to display formatted source code in our web pages without having to load more JS/CSS than whe need.
+We want to display formatted source code in our web pages without having to load more JS/CSS than whe need to.
 And to avoid a flash of un-styled content (aka FOUC), we prefer not to do that dynamically.
 
 ## Install
