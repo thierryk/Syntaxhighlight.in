@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>
+/*!
+ *  Syntax Highlighting based on 'Snippet' by SteamDev (http://steamdev.com/snippet)
+ *  http://syntaxhighlight.in v1.0.0
+ *  Date: Sunday Jan 1, 2012
+ *  version for JQuery
+ */
+$(document).ready(function(){function a(b){top.consoleRef=window.open("","myconsole","width=600,height=300,left=50,top=50,menubar=0,toolbar=0,location=0,status=0,scrollbars=1,resizable=1");top.consoleRef.document.writeln("<html><head><title>Snippet :: Code View :: "+location.href+'</title></head><body bgcolor=white onLoad="self.focus()"><pre>'+b+"</pre></body></html>");top.consoleRef.document.close()}$(".snippet-container").each(function(b){$(this).find("a.snippet-text").click(function(){var d=$(this).parents(".snippet-wrap").find(".snippet-formatted");var c=$(this).parents(".snippet-wrap").find(".snippet-textonly");d.toggle();c.toggle();if(c.is(":visible")){$(this).html("html")}else{$(this).html("text")}return false});$(this).find("a.snippet-window").click(function(){var c=$(this).parents(".snippet-wrap").find(".snippet-textonly").html();a(c);$(this).blur();return false})});$(".snippet-toggle").each(function(b){$(this).click(function(){$(this).parents(".snippet-container").find(".snippet-wrap").toggle()})})});
+
+
+    
+</script>
+<style>
+
+/*!
+ *  Syntax Highlighting based on 'Snippet' by SteamDev (http://steamdev.com/snippet)
+ *  http://syntaxhighlight.in v1.0.0
+ *  Date: Sunday Jan 1, 2012
+ *
+ * .sh_sourceCode is the <pre>
+ */.sh_default{background:0;padding:0;margin:0;border:0 none}.sh_default pre{background-color:#e7e5dc;color:#5c5c5c;font-weight:normal;font-style:normal;padding:.5em!important;-moz-border-radius:3px!important;-webkit-border-radius:3px!important;border-radius:3px!important;-moz-box-shadow:1px 1px 3px 1px #888!important;-webkit-box-shadow:1px 1px 3px 1px #888!important;box-shadow:1px 1px 3px 1px #888!important}.sh_default .snippet-formatted .snippet-num{margin:0;padding-left:4em}.sh_default .sh_sourceCode li{background-color:#fff;border-left:3px solid #6ce26c}.sh_default .sh_sourceCode li:nth-child(odd){background-color:#f8f8f8}.sh_default .sh_sourceCode .sh_keyword{color:#bb7977;font-weight:bold;font-style:normal}.sh_default .sh_sourceCode .sh_type{color:#8080c0;font-weight:bold;font-style:normal}.sh_default .sh_sourceCode .sh_string{color:#a68500;font-weight:normal;font-style:normal}.sh_default .sh_sourceCode .sh_regexp{color:#a68500;font-weight:normal;font-style:normal}.sh_default .sh_sourceCode .sh_specialchar{color:#f0f;font-weight:bold;font-style:normal}.sh_default .sh_sourceCode .sh_comment{color:#ff8000;font-weight:normal;font-style:normal}.sh_default .sh_sourceCode .sh_number{color:#800080;font-weight:bold;font-style:normal}.sh_default .sh_sourceCode .sh_preproc{color:#0080c0;font-weight:bold;font-style:normal}.sh_default .sh_sourceCode .sh_symbol{color:#ff0080;font-weight:bold;font-style:normal}.sh_default .sh_sourceCode .sh_function{color:#046;font-weight:normal;font-style:normal}.sh_default .sh_sourceCode .sh_cbracket{color:#ff0080;font-weight:bold;font-style:normal}.sh_default .sh_sourceCode .sh_url{color:#a68500;font-weight:normal;font-style:normal}.sh_default .sh_sourceCode .sh_date{color:#bb7977;font-weight:bold;font-style:normal}.sh_default .sh_sourceCode .sh_time{color:#bb7977;font-weight:bold;font-style:normal}.sh_default .sh_sourceCode .sh_file{color:#bb7977;font-weight:bold;font-style:normal}.sh_default .sh_sourceCode .sh_ip{color:#a68500;font-weight:normal;font-style:normal}.sh_default .sh_sourceCode .sh_name{color:#a68500;font-weight:normal;font-style:normal}.sh_default .sh_sourceCode .sh_variable{color:#0080c0;font-weight:normal;font-style:normal}.sh_default .sh_sourceCode .sh_oldfile{color:#f0f;font-weight:bold;font-style:normal}.sh_default .sh_sourceCode .sh_newfile{color:#a68500;font-weight:normal;font-style:normal}.sh_default .sh_sourceCode .sh_difflines{color:#bb7977;font-weight:bold;font-style:normal}.sh_default .sh_sourceCode .sh_selector{color:#0080c0;font-weight:normal;font-style:normal}.sh_default .sh_sourceCode .sh_property{color:#bb7977;font-weight:bold;font-style:normal}.sh_default .sh_sourceCode .sh_value{color:#a68500;font-weight:normal;font-style:normal}.snippet-textonly:focus{background:#333!important;color:#fff!important}.snippet-wrap pre{margin:5px 0;padding:0}.snippet-wrap .snippet-menu a,.snippet-wrap .snippet-hide a{padding:0 5px}.snippet-wrap pre.sh_sourceCode{padding:1em;line-height:1.8em;overflow:auto;position:relative;-moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;box-shadow:2px 2px 5px #000;-moz-box-shadow:2px 2px 5px #000;-webkit-box-shadow:2px 2px 5px #000}.snippet-wrap pre.snippet-textonly{padding:2em}.snippet-wrap pre.snippet-formatted{*padding:2em 1em}.snippet-reveal pre.sh_sourceCode{padding:.5em 1em;text-align:right}.snippet-wrap .snippet-num li{padding-left:1.5em}.snippet-wrap .snippet-no-num{list-style:none;padding:0;margin:0}.snippet-wrap .snippet-no-num li{list-style:none;padding-left:0}.snippet-wrap .snippet-num{margin:1em 0 1em 1em;padding-left:3em}.snippet-wrap .snippet-num li{list-style:decimal-leading-zero outside none}.snippet-wrap .snippet-no-num li.box{padding:0 6px;margin-left:-6px}.snippet-wrap .snippet-num li.box{border:1px solid;list-style-position:inside;margin-left:-3em;padding-left:6px}.snippet-wrap .snippet-num li.box{*margin-left:-2.4em}.snippet-wrap li.box-top{border-width:1px 1px 0!important}.snippet-wrap li.box-bot{border-width:0 1px 1px!important}.snippet-wrap li.box-mid{border-width:0 1px!important}.snippet-wrap .snippet-num li .box-sp{width:18px;display:inline-block}.snippet-wrap .snippet-num li .box-sp{*width:27px}.snippet-wrap .snippet-no-num li.box{border:1px solid}.snippet-wrap .snippet-no-num li .box-sp{display:none}.snippet-container .snippet-menu{border-radius:3px;background:#fff;padding:2px 5px 3px;display:inline-block;*display:inline;zoom:1}.snippet-container .sh_url,.snippet-wrap .snippet-toggle{text-decoration:none!important;font:12px sans-serif!important}.snippet-window{border-right-width:1px;border-right-style:solid}.snippet-wrap .snippet-toggle{display:block}.snippet-hide pre{background:#fff!important}.snippet-hide pre a{color:#333!important}
+</style>
+</head>
+<body>
+
+<h2>HTML with a highlighted line (#5)</h2>
+<div class="snippet-container"><div class="sh_default snippet-wrap"><div class="snippet-menu sh_sourceCode"><a class="snippet-window sh_url" href="#">pop-up</a><a class="snippet-text sh_url" href="#">text</a></div><pre class="shi_pre sh_html snippet-formatted sh_sourceCode"><ol class="snippet-num"><li><span class="sh_comment">&lt;!-- Markup --&gt;</span></li><li></li><li><span class="sh_keyword">&lt;div</span> <span class="sh_type">id</span><span class="sh_symbol">=</span><span class="sh_string">"header"</span><span class="sh_keyword">&gt;</span></li><li>    <span class="sh_keyword">&lt;div</span> <span class="sh_type">class</span><span class="sh_symbol">=</span><span class="sh_string">"wrapper"</span><span class="sh_keyword">&gt;</span></li><li class="box box-bg" style="border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0.0976562); margin-left: -3.3em; "><span class="box-sp" style="width: 21px; ">&nbsp;</span>        <span class="sh_keyword">&lt;a</span> <span class="sh_type">height</span><span class="sh_symbol">=</span><span class="sh_string">"70"</span> <span class="sh_type">class</span><span class="sh_symbol">=</span><span class="sh_string">"logo"</span> <span class="sh_type">href</span><span class="sh_symbol">=</span><span class="sh_string">"/"</span><span class="sh_keyword">&gt;&lt;img</span> <span class="sh_type">src</span><span class="sh_symbol">=</span><span class="sh_string">"img/logo.png"</span> <span class="sh_type">alt</span><span class="sh_symbol">=</span><span class="sh_string">"Syntax Highlight.in"</span> <span class="sh_keyword">/&gt;&lt;/a&gt;</span></li><li>    <span class="sh_keyword">&lt;/div&gt;</span></li><li><span class="sh_keyword">&lt;/div&gt;</span></li><li><span class="sh_keyword">&lt;div</span> <span class="sh_type">id</span><span class="sh_symbol">=</span><span class="sh_string">"intro"</span> <span class="sh_type">class</span><span class="sh_symbol">=</span><span class="sh_string">"section"</span><span class="sh_keyword">&gt;</span></li><li>    <span class="sh_keyword">&lt;div</span> <span class="sh_type">class</span><span class="sh_symbol">=</span><span class="sh_string">"wrapper"</span><span class="sh_keyword">&gt;</span></li><li>    <span class="sh_keyword">&lt;h1&gt;</span>An online tool to display formatted source code<span class="sh_keyword">&lt;/h1&gt;</span></li><li>    <span class="sh_keyword">&lt;div</span> <span class="sh_type">id</span><span class="sh_symbol">=</span><span class="sh_string">"hero"</span><span class="sh_keyword">&gt;&lt;img</span> <span class="sh_type">height</span><span class="sh_symbol">=</span><span class="sh_string">"140"</span> <span class="sh_type">width</span><span class="sh_symbol">=</span><span class="sh_string">"700"</span> <span class="sh_type">src</span><span class="sh_symbol">=</span><span class="sh_string">"img/hero.png"</span> <span class="sh_type">alt</span><span class="sh_symbol">=</span><span class="sh_string">""</span> <span class="sh_keyword">/&gt;&lt;/div&gt;</span></li><li>    <span class="sh_keyword">&lt;ul&gt;</span></li><li>        <span class="sh_keyword">&lt;li&gt;</span>No dynamic styling (no FOUC - Flash Of Unstyled Content)<span class="sh_keyword">&lt;/li&gt;</span></li><li>        <span class="sh_keyword">&lt;li&gt;</span>Small footprint - no JavaScript brush to load (JS + CSS is about 6kb)<span class="sh_keyword">&lt;/li&gt;</span></li><li>        <span class="sh_keyword">&lt;li&gt;</span>Users can open the code in a popup window for easy printing<span class="sh_keyword">&lt;/li&gt;</span></li><li>        <span class="sh_keyword">&lt;li&gt;</span>Users can swap between formatted and non-formatted views<span class="sh_keyword">&lt;/li&gt;</span></li><li>        <span class="sh_keyword">&lt;li&gt;</span>Users can collapse and expand large snippets<span class="sh_keyword">&lt;/li&gt;</span></li><li>        <span class="sh_keyword">&lt;li&gt;</span>Users can navigate the options via the keyboard<span class="sh_keyword">&lt;/li&gt;</span></li><li>        <span class="sh_keyword">&lt;li&gt;</span>Developers can choose to emphasize arbitrary line(s)<span class="sh_keyword">&lt;/li&gt;</span></li><li>        <span class="sh_keyword">&lt;li&gt;</span>Developers can turn line numbering on or off<span class="sh_keyword">&lt;/li&gt;</span></li><li>        <span class="sh_keyword">&lt;li&gt;</span>URLs inside formatted snippets are click-able<span class="sh_keyword">&lt;/li&gt;</span></li><li>    <span class="sh_keyword">&lt;/ul&gt;</span></li><li>    <span class="sh_keyword">&lt;/div&gt;</span></li><li><span class="sh_keyword">&lt;/div&gt;</span></li></ol></pre><pre class="snippet-textonly sh_sourceCode" style="display:none;" tabindex="0" contenteditable="">&lt;!-- Markup --&gt;
+
+&lt;div id="header"&gt;
+    &lt;div class="wrapper"&gt;
+        &lt;a height="70" class="logo" href="/"&gt;&lt;img src="img/logo.png" alt="Syntax Highlight.in" /&gt;&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="intro" class="section"&gt;
+    &lt;div class="wrapper"&gt;
+    &lt;h1&gt;An online tool to display formatted source code&lt;/h1&gt;
+    &lt;div id="hero"&gt;&lt;img height="140" width="700" src="img/hero.png" alt="" /&gt;&lt;/div&gt;
+    &lt;ul&gt;
+        &lt;li&gt;No dynamic styling (no FOUC - Flash Of Unstyled Content)&lt;/li&gt;
+        &lt;li&gt;Small footprint - no JavaScript brush to load (JS + CSS is about 6kb)&lt;/li&gt;
+        &lt;li&gt;Users can open the code in a popup window for easy printing&lt;/li&gt;
+        &lt;li&gt;Users can swap between formatted and non-formatted views&lt;/li&gt;
+        &lt;li&gt;Users can collapse and expand large snippets&lt;/li&gt;
+        &lt;li&gt;Users can navigate the options via the keyboard&lt;/li&gt;
+        &lt;li&gt;Developers can choose to emphasize arbitrary line(s)&lt;/li&gt;
+        &lt;li&gt;Developers can turn line numbering on or off&lt;/li&gt;
+        &lt;li&gt;URLs inside formatted snippets are click-able&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre></div></div>
+<h2>CSS with expand/collapse functionality</h2>
+<div class="snippet-container"><div class="sh_default snippet-wrap" style="display: none; "><div class="snippet-menu sh_sourceCode"><a class="snippet-window sh_url" href="#">pop-up</a><a class="snippet-text sh_url" href="#">text</a></div><pre class="shi_pre sh_css snippet-formatted sh_sourceCode"><ol class="snippet-num"><li>body<span class="sh_symbol">,</span></li><li>p<span class="sh_symbol">,</span></li><li>legend<span class="sh_symbol">,</span></li><li>label <span class="sh_cbracket">{</span></li><li>    <span class="sh_property">font:</span> <span class="sh_value">16px</span>/<span class="sh_value">1.4</span> "<span class="sh_value">Helvetica</span> <span class="sh_value">Neue</span>",<span class="sh_value">Helvetica</span>,<span class="sh_value">Arial</span>,<span class="sh_value">sans-serif</span>;</li><li><span class="sh_cbracket">}</span></li><li> a<span class="sh_symbol">:</span>link<span class="sh_symbol">,</span></li><li>a<span class="sh_symbol">:</span>visited <span class="sh_cbracket">{</span></li><li>    <span class="sh_property">color:</span> <span class="sh_string">#fff</span>;</li><li><span class="sh_cbracket">}</span></li><li>a<span class="sh_symbol">:</span>visited <span class="sh_cbracket">{</span></li><li>    <span class="sh_property">text-decoration:</span> <span class="sh_value">none</span>;</li><li><span class="sh_cbracket">}</span></li><li>h1 <span class="sh_cbracket">{</span></li><li>    <span class="sh_property">margin:</span> <span class="sh_value">0</span> <span class="sh_value">0</span> <span class="sh_value">10px</span>;</li><li>    <span class="sh_property">text-align:</span> <span class="sh_value">center</span>;</li><li>    <span class="sh_property">font-size:</span> <span class="sh_value">30px</span>;</li><li><span class="sh_cbracket">}</span></li><li>h2 <span class="sh_cbracket">{</span></li><li>    <span class="sh_property">background:</span> <span class="sh_string">#fff</span>;</li><li>    <span class="sh_property">display:</span> <span class="sh_value">inline-block</span>;</li><li>    <span class="sh_property">margin-bottom:</span> <span class="sh_value">20px</span>;</li><li>    <span class="sh_property">padding:</span> <span class="sh_value">2px</span> <span class="sh_value">12px</span>;</li><li>    <span class="sh_property">font-size:</span> <span class="sh_value">18px</span>;</li><li>    <span class="sh_property">border-radius:</span> <span class="sh_value">3px</span>;</li><li>    <span class="sh_property">text-shadow:</span> <span class="sh_value">none</span>;</li><li><span class="sh_cbracket">}</span></li><li><span class="sh_selector">#intro</span> ul <span class="sh_cbracket">{</span></li><li>    <span class="sh_property">font-size:</span> <span class="sh_value">18px</span>;</li><li>    <span class="sh_property">line-height:</span> <span class="sh_value">1.8</span>;</li><li><span class="sh_cbracket">}</span></li><li><span class="sh_selector">#intro</span> li <span class="sh_cbracket">{</span></li><li>    <span class="sh_property">background:</span> <span class="sh_value">url</span>(<span class="sh_value">..</span>/<span class="sh_value">img</span>/<span class="sh_value">check.png</span>) <span class="sh_value">no-repeat</span> <span class="sh_value">0</span> <span class="sh_value">3px</span>;</li><li>    <span class="sh_property">list-style:</span> <span class="sh_value">none</span>;</li><li>    <span class="sh_property">padding-left:</span> <span class="sh_value">36px</span>;</li><li><span class="sh_cbracket">}</span></li><li><span class="sh_selector">#step4</span> h2<span class="sh_symbol">:</span>after <span class="sh_cbracket">{</span></li><li>    <span class="sh_property">content:</span> "";</li><li>    <span class="sh_property">display:</span> <span class="sh_value">inline-block</span>;</li><li>    <span class="sh_property">margin:</span> <span class="sh_value">0</span> <span class="sh_value">0</span> <span class="sh_value">-9px</span> <span class="sh_value">10px</span>;</li><li>    <span class="sh_property">border:</span> <span class="sh_value">10px</span> <span class="sh_value">solid</span> <span class="sh_value">transparent</span>;</li><li>    <span class="sh_property">border-top-color:</span> <span class="sh_string">#555</span>;</li><li><span class="sh_cbracket">}</span></li><li>label <span class="sh_cbracket">{</span></li><li>    <span class="sh_property">padding-bottom:</span> <span class="sh_value">5px</span>;</li><li>    <span class="sh_property">width:</span> <span class="sh_value">auto</span>;</li><li>    <span class="sh_property">text-align:</span> <span class="sh_value">left</span>;</li><li><span class="sh_cbracket">}</span></li><li>label input <span class="sh_cbracket">{</span></li><li>    <span class="sh_property">margin-right:</span> <span class="sh_value">5px</span> !<span class="sh_value">important</span>;</li><li><span class="sh_cbracket">}</span></li><li>select <span class="sh_cbracket">{</span></li><li>    <span class="sh_property">border:</span> <span class="sh_value">1px</span> <span class="sh_value">solid</span> <span class="sh_string">#999</span>;</li><li><span class="sh_cbracket">}</span></li></ol></pre><pre class="snippet-textonly sh_sourceCode" style="display:none;" tabindex="0" contenteditable="">body,
+p,
+legend,
+label {
+    font: 16px/1.4 "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+ a:link,
+a:visited {
+    color: #fff;
+}
+a:visited {
+    text-decoration: none;
+}
+h1 {
+    margin: 0 0 10px;
+    text-align: center;
+    font-size: 30px;
+}
+h2 {
+    background: #fff;
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 2px 12px;
+    font-size: 18px;
+    border-radius: 3px;
+    text-shadow: none;
+}
+#intro ul {
+    font-size: 18px;
+    line-height: 1.8;
+}
+#intro li {
+    background: url(../img/check.png) no-repeat 0 3px;
+    list-style: none;
+    padding-left: 36px;
+}
+#step4 h2:after {
+    content: "";
+    display: inline-block;
+    margin: 0 0 -9px 10px;
+    border: 10px solid transparent;
+    border-top-color: #555;
+}
+label {
+    padding-bottom: 5px;
+    width: auto;
+    text-align: left;
+}
+label input {
+    margin-right: 5px !important;
+}
+select {
+    border: 1px solid #999;
+}</pre><div class="sh_sourceCode snippet-hide"><pre><a href="#" class="snippet-revealed snippet-close snippet-toggle sh_url">Collapse Code</a></pre></div></div><div class="snippet-reveal sh_default snippet-wrap"><pre class="sh_sourceCode"><a href="#" class="snippet-expand snippet-toggle sh_url">Expand Code</a></pre></div></div>
+<h2>Javascript without line numbering</h2>
+<div class="snippet-container"><div class="sh_default snippet-wrap"><div class="snippet-menu sh_sourceCode"><a class="snippet-window sh_url" href="#">pop-up</a><a class="snippet-text sh_url" href="#">text</a></div><pre class="shi_pre sh_javascript_dom snippet-formatted sh_sourceCode"><ul class="snippet-no-num"><li><span class="sh_symbol">&lt;</span>script type<span class="sh_symbol">=</span><span class="sh_string">"text/javascript"</span><span class="sh_symbol">&gt;</span></li><li></li><li>  <span class="sh_keyword">var</span> _gaq <span class="sh_symbol">=</span> _gaq <span class="sh_symbol">||</span> <span class="sh_symbol">[];</span></li><li>  _gaq<span class="sh_symbol">.</span><span class="sh_function">push</span><span class="sh_symbol">([</span><span class="sh_string">'_setAccount'</span><span class="sh_symbol">,</span> <span class="sh_string">'UA-28374417-1'</span><span class="sh_symbol">]);</span></li><li>  _gaq<span class="sh_symbol">.</span><span class="sh_function">push</span><span class="sh_symbol">([</span><span class="sh_string">'_trackPageview'</span><span class="sh_symbol">]);</span></li><li></li><li>  <span class="sh_symbol">(</span><span class="sh_keyword">function</span><span class="sh_symbol">()</span> <span class="sh_cbracket">{</span></li><li>    <span class="sh_keyword">var</span> ga <span class="sh_symbol">=</span> <span class="sh_predef_var">document</span><span class="sh_symbol">.</span><span class="sh_function">createElement</span><span class="sh_symbol">(</span><span class="sh_string">'script'</span><span class="sh_symbol">);</span> ga<span class="sh_symbol">.</span>type <span class="sh_symbol">=</span> <span class="sh_string">'text/javascript'</span><span class="sh_symbol">;</span> ga<span class="sh_symbol">.</span>async <span class="sh_symbol">=</span> <span class="sh_keyword">true</span><span class="sh_symbol">;</span></li><li>    ga<span class="sh_symbol">.</span>src <span class="sh_symbol">=</span> <span class="sh_symbol">(</span><span class="sh_string">'https:'</span> <span class="sh_symbol">==</span> <span class="sh_predef_var">document</span><span class="sh_symbol">.</span><span class="sh_predef_var">location</span><span class="sh_symbol">.</span>protocol <span class="sh_symbol">?</span> <span class="sh_string">'https://ssl'</span> <span class="sh_symbol">:</span> <span class="sh_string">'http://www'</span><span class="sh_symbol">)</span> <span class="sh_symbol">+</span> <span class="sh_string">'.google-analytics.com/ga.js'</span><span class="sh_symbol">;</span></li><li>    <span class="sh_keyword">var</span> s <span class="sh_symbol">=</span> <span class="sh_predef_var">document</span><span class="sh_symbol">.</span><span class="sh_function">getElementsByTagName</span><span class="sh_symbol">(</span><span class="sh_string">'script'</span><span class="sh_symbol">)[</span><span class="sh_number">0</span><span class="sh_symbol">];</span> s<span class="sh_symbol">.</span>parentNode<span class="sh_symbol">.</span><span class="sh_function">insertBefore</span><span class="sh_symbol">(</span>ga<span class="sh_symbol">,</span> s<span class="sh_symbol">);</span></li><li>  <span class="sh_cbracket">}</span><span class="sh_symbol">)();</span></li><li></li><li><span class="sh_symbol">&lt;/</span>script<span class="sh_symbol">&gt;</span></li></ul></pre><pre class="snippet-textonly sh_sourceCode" style="display:none;" tabindex="0" contenteditable="">&lt;script type="text/javascript"&gt;
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28374417-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+&lt;/script&gt;
+</pre></div></div>
+
+</body>
+</html>
