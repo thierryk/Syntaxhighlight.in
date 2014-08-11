@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<title>Syntax Highlighting Without the Overhead</title>
+
+    <!--[if lte IE 9]><style>.section,#header,#footer {display:none!important;}#ie{display:block!important;background:#000;color:#fff;font:bold 30px sans-serif;}</style><![endif]-->
+
+    <style>
+/*
+==========================
+ INLINE STYLES GOES HERE
+ /inline-js-and-css/styles.min.js
+==========================
+*/
+
+/*!
+ * Base which contains a few things from Twitter Bootstrap...
+ */html{overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}html,body,h1,h2,h3,p,fieldset,blockquote,pre,dl,dd,form,button{margin:0;padding:0}a:focus{outline:thin dotted}a:hover,a:active{outline:0}fieldset,img{border:0}button,input,select,textarea{font-size:100%;margin:0;vertical-align:baseline;*vertical-align:middle}button,input{line-height:normal;*overflow:visible}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}button{cursor:pointer;-webkit-appearance:button}textarea{overflow:auto;vertical-align:top}.hide{display:none}.show{display:block}blockquote{margin-bottom:18px;border-left:5px solid #eee;padding-left:15px}blockquote p{font-size:14px;font-weight:300;line-height:18px;margin-bottom:0}blockquote small{display:block;font-size:12px;font-weight:300;line-height:18px;color:#bfbfbf}blockquote small:before{content:'\2014 \00A0'}code,pre{padding:0 3px 2px;font-family:Monaco,Andale Mono,Courier New,monospace;font-size:12px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}code{background-color:#fee9cc;color:rgba(0,0,0,0.75);padding:1px 3px}pre{background-color:#f5f5f5;display:block;padding:8.5px;margin:0 0 18px;line-height:18px;font-size:12px;border:1px solid #ccc;border:1px solid rgba(0,0,0,0.15);-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;white-space:pre;white-space:pre-wrap;word-wrap:break-word}input[type=checkbox],input[type=radio],label{cursor:pointer}input,textarea,select{display:inline-block;width:210px;height:30px;color:#555;border:0;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}select{padding:initial}input[type=checkbox],input[type=radio]{width:auto;height:auto;margin:3px 0;*margin-top:0}select{height:30px;*height:auto;line-height:30px;*margin-top:4px}:-moz-placeholder{color:#bfbfbf}::-webkit-input-placeholder{color:#bfbfbf}input:focus,textarea:focus{outline:0;border-color:rgba(82,168,236,0.8);-webkit-box-shadow:inset 0 1px 3px rgba(0,0,0,0.1),0 0 8px rgba(82,168,236,0.6);-moz-box-shadow:inset 0 1px 3px rgba(0,0,0,0.1),0 0 8px rgba(82,168,236,0.6);box-shadow:inset 0 1px 3px rgba(0,0,0,0.1),0 0 8px rgba(82,168,236,0.6)}input[type=checkbox]:focus{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;outline:3px dotted rgba(82,168,236,0.8)}.help-block{display:block;font-size:13px;clear:left}.well{background-color:#f5f5f5;margin-bottom:20px;padding:19px;min-height:20px;border:1px solid #eee;border:1px solid rgba(0,0,0,0.05);-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);box-shadow:inset 0 1px 1px rgba(0,0,0,0.05)}.well blockquote{border-color:#ddd;border-color:rgba(0,0,0,0.15)}.twipsy{display:block;position:absolute;visibility:visible;padding:5px;font-size:11px;z-index:1000;filter:alpha(opacity=80);-khtml-opacity:.8;-moz-opacity:.8;opacity:.8}.twipsy.fade.in{filter:alpha(opacity=80);-khtml-opacity:.8;-moz-opacity:.8;opacity:.8}.twipsy.above .twipsy-arrow{bottom:0;left:50%;margin-left:-5px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid #000}.twipsy.left .twipsy-arrow{top:50%;right:0;margin-top:-5px;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:5px solid #000}.twipsy.below .twipsy-arrow{top:0;left:50%;margin-left:-5px;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:5px solid #000}.twipsy.right .twipsy-arrow{top:50%;left:0;margin-top:-5px;border-top:5px solid transparent;border-bottom:5px solid transparent;border-right:5px solid #000}.twipsy-inner{padding:3px 8px;background-color:#000;color:white;text-align:center;max-width:200px;text-decoration:none;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px}.twipsy-arrow{position:absolute;width:0;height:0}.fade{-webkit-transition:opacity .15s linear;-moz-transition:opacity .15s linear;-ms-transition:opacity .15s linear;-o-transition:opacity .15s linear;transition:opacity .15s linear;opacity:0}.fade.in{opacity:1}
+
+/*! Custom */
+
+   #intro:target {display:none !important;}
+   #ie {display:none;}
+
+/* BACKGROUNDS */
+
+    html,body,#header,.section,#footer {background-image:url(../img/noise.png);}
+    body,.section {background-color:#fff;}
+    #step4 .wrapper {background:#fff;}
+    html,#header,#footer {background-color:#911;}
+
+/* BORDERS */
+    body {padding:0 2px;}
+    #header,#step1,#step5 {border-bottom:2px dotted #C31515;border-top:2px dotted #C31515;}
+    #header {border-top:0;border-bottom:2px dotted #fff;margin:0 -2px;}
+    #step1 {border-bottom:0;}
+
+    #step4 {padding-top:1px;margin-top:-4px;border-top:1px dotted #555;}
+
+    #step5 {margin-top:-4px;}
+    #footer {border-top:2px dotted #fff;margin:0 -2px;position:relative;}
+    #footer:before {content:"";position:absolute;left:2px;right:2px;border-top:2px dotted #fff;}
+    #footer:after {content:"";position:absolute;top:-1px;left:1px;right:1px;border-top:2px dotted #911;}
+
+/* MAIN IMAGES */
+
+    #header img, #hero img {width:100%;height:auto;}
+
+/* COLOR and TEXT-SHADOW */
+
+    body {color:#e1e1e1;text-shadow:1px 1px #000;}
+    code {color:#000;text-shadow:1px 1px #fff;}
+    .section {color:#555;text-shadow:1px 1px #fff;}
+    #step4 {text-shadow:none;}
+    #step5 a:link,#step5 a:visited {color:#333;text-shadow:none;}
+
+/* ELEMENTS + BUTTONS */
+
+    body,p,legend,label {font: 16px/1.4 "Helvetica Neue",Helvetica,Arial,sans-serif;}
+    a:link,a:visited {color:#fff;}
+    a:visited {text-decoration:none;}
+    h1 {margin:0 0 10px;text-align:center;font-size:30px;}
+    h2 {background:#fff;display:inline-block;margin-bottom:20px;padding:2px 12px;font-size:18px;border-radius:3px;text-shadow:none;}
+    #intro ul {font-size:18px;line-height:1.8;}
+    #intro li {background:url(../img/check.png) no-repeat 0 3px;list-style:none;padding-left:36px;}
+    #step4 h2:after {content:"";display:inline-block;margin:0 0 -9px 10px;border:10px solid transparent;border-top-color:#555;}
+    label {padding-bottom:5px;width:auto;text-align:left;}
+    label input {margin-right:5px !important;}
+    select {border:1px solid #999;}
+    button {text-shadow:1px 1px #777;background-color: #3BB3E0;padding:10px;margin-right:10px;position:relative;font-family:'Open Sans',sans-serif;color:white;background-image: -o-linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);background-image: -moz-linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);background-image: -webkit-linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);background-image: -ms-linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(44,160,202)), color-stop(1, rgb(62,184,229)) );background-image: linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#049cdb', endColorstr='#0064cd', GradientType=0);-webkit-box-shadow: inset 0px 1px 0px #7fd2f1, 0px 1px 0px #fff;-moz-box-shadow: inset 0px 1px 0px #7fd2f1, 0px 1px 0px #fff;box-shadow: inset 0px 1px 0px #7fd2f1, 0px 1px 0px #fff;-webkit-border-radius: 3px;-moz-border-radius: 3px;-o-border-radius: 3px;border-radius: 3px;border-image: initial;border: solid 1px #186F8F;}
+    button[disabled="disabled"] {top:-1px;cursor: not-allowed;color:#ccc;text-shadow:none;background:rgba(255,255,255,.3);border:1px solid #c2ccd1;-webkit-box-shadow:inset 0px 1px 0px #ccc, 0px 1px 0px #fff;-moz-box-shadow: inset 0px 1px 0px #ccc, 0px 1px 0px #fff;box-shadow: inset 0px 1px 0px #ccc, 0px 1px 0px #fff;}
+    .startOver {background:#C31515 url(../img/noise.png);-webkit-box-shadow: inset 0px 1px 0px #ccc, 0px 1px 0px #fff;-moz-box-shadow: inset 0px 1px 0px #ccc, 0px 1px 0px #fff;box-shadow: inset 0px 1px 0px #ccc, 0px 1px 0px #fff;border:1px solid #555;}
+
+
+        label input {opacity:0;}
+        #toggleControls label,#checkBox  {background:url(../img/uncheck.png) no-repeat;padding-left:10px;}
+        #toggleControls .selected,#checkBox.selected {background-image:url(../img/check.png);}
+
+
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+       select {
+           padding-left:5px;
+           margin-top:5px;
+           -webkit-appearance:textfield;
+           -webkit-box-shadow:1px 1px 1px 1px #fff, -1px -1px 1px 1px #fff, 1px 1px 1px 1px #999 inset, -1px -1px 1px 1px #ccc;
+           box-shadow:1px 1px 1px 1px #fff, -1px -1px 1px 1px #fff, 1px 1px 1px 1px #999 inset, -1px -1px 1px 1px #ccc;
+       }
+       select {
+           background:#fff url(../img/select.png) no-repeat 98% 8px;
+       }
+    }
+
+/* LAYOUT */
+
+    #header,.section,#footer {position:relative;text-align:center;}
+    .wrapper {position:relative;max-width:700px;margin:auto;display:inline-block;*display:block;text-align:left;}
+    #step4 .wrapper {margin:3em auto 1em; max-width:660px;display:block;padding:20px 10px;border-radius:5px;}
+    #header {padding:1.5em 10px;}
+    #header .wrapper,#intro .wrapper, #footer .wrapper {display:block;}
+    .section {padding:2em 10px;}
+    #footer .wrapper {padding:4em 10px;}
+
+/* HIDDEN */
+
+    .section,.themeLink {display:none;}
+    #intro.section {display:block;}
+
+/* STEP 1 + FORM CONTROLS */
+
+    #step1 {display:block;}
+    #dropZone {background-size:50% auto;width:100%;min-height:45px;_height:45px;margin-bottom:1em;padding:0;}
+
+    #backgroundColor {width:172px;margin:12px 0 30px;;}
+    #backgroundColorLabel {overflow:hidden;min-width:420px;display:block;padding:10px 0 0 10px;}
+    #backgroundColorLabel b {display:block;}
+    #dropZone,input[type=text],#theStuff textarea {-webkit-box-shadow:1px 1px 1px 1px #fff, -1px -1px 1px 1px #fff, 1px 1px 1px 1px #999 inset, -1px -1px 1px 1px #999;box-shadow:1px 1px 1px 1px #fff, -1px -1px 1px 1px #fff, 1px 1px 1px 1px #999 inset, -1px -1px 1px 1px #999;}
+    #dropZone {min-height:75px;_height:75px;margin:20px 0 40px;background:whiteSmoke url(../img/dropzone-background.png) no-repeat 50% 50%;}
+    #dropZone:focus {background-image:none;}
+    #toggleOption {float:left;margin-bottom:15px;}
+    #toggleControls label {width:auto;margin-left:35px;}
+    .inlineBox {display:inline-block;*display:inline;zoom:1;margin:5px 0 10px;width:220px;}
+    #options {margin:20px 0;}
+    #lineOption {clear:left;padding:30px;margin:20px 0;background:rgba(255,255,255,.3);border:1px solid #ccc;border-radius:5px;}
+    #lineOption label {display:block;}
+
+
+/* STEP 4 */
+
+    .shi_pre,.snippet-textonly {padding:1em !important;}
+    .shi_pre,.snippet-textonly,.snippet-container {margin:1em 0;}
+    .shi_pre {background:none;border:0;}
+
+/* STEP 5 */
+
+    #step5 h2 {margin-bottom:35px;}
+    #htmlToCopy {max-width:660px;width:90%;margin:0 0 40px;height:100px;}
+    dt {font-weight:normal;clear:left;margin:0 0 20px 0;padding:4px 0;}
+    .themeLink,.jsLink {margin:0 0 20px 20px;float:left;border-radius:5px;padding:4px 10px;background:rgba(255,255,255,.5);}
+    .important {margin-top:30px;}
+    #put {padding-left:20px;text-indent:-20px;}
+
+/* CLASSES */
+
+    .buttons {padding-top:20px;clear:left;}
+    .offScreen {position:absolute;left:-999em;}
+    .visuOffset {font-weight:bold;}
+    .fl {float:left;margin-right:10px;}
+    .fr {float:right;}
+    .bfc {overflow:hidden;zoom:1;m in-width:200px;}
+    .bfc,.bfc label {display:inline-block;white-space:nowrap;}
+    .dn {display:none;}
+    .help-block {line-height:1.2;margin:7px 0 10px;}
+    .twipsy {font-size:14px;}
+
+/* FOOTER */
+
+    small {font-size:12px;display:block;margin-top:10px;}
+
+    @media screen and (max-width: 480px) {
+      #hero img {
+        display: none;
+      }
+        body,label,ul {font-size:14px;}
+        h1 {font-size:16px;}
+        #header {padding:5px 5px 0;}
+    }
+
+
+/*!
+ *  Syntax Highlighting based on 'Snippet' by SteamDev (http://steamdev.com/snippet)
+ *  http://syntaxhighlight.in v1.0.0
+ *  Date: Sunday Jan 1, 2012
+ *
+ * .sh_sourceCode is the <pre>
+ */
+.sh_default {background:none; padding:0; margin:0; border:0 none;}.sh_default pre{background-color:#e7e5dc;color:#5c5c5c;font-weight:normal;font-style:normal;padding:0.5em!important;-moz-border-radius:3px!important;-webkit-border-radius:3px!important;border-radius:3px!important;-moz-box-shadow:1px 1px 3px 1px #888 !important;-webkit-box-shadow:1px 1px 3px 1px #888 !important;box-shadow:1px 1px 3px 1px #888 !important;}.sh_default .snippet-formatted .snippet-num {margin:0;padding-left:4em;}.sh_default .sh_sourceCode li {background-color:#fff;border-left:3px solid #6ce26c;}.sh_default .sh_sourceCode li:nth-child(odd) {background-color:#f8f8f8;}.sh_default .sh_sourceCode .sh_keyword{color:#bb7977;font-weight:bold;font-style:normal;}.sh_default .sh_sourceCode .sh_type{color:#8080c0;font-weight:bold;font-style:normal;}.sh_default .sh_sourceCode .sh_string{color:#a68500;font-weight:normal;font-style:normal;}.sh_default .sh_sourceCode .sh_regexp{color:#a68500;font-weight:normal;font-style:normal;}.sh_default .sh_sourceCode .sh_specialchar{color:#f0f;font-weight:bold;font-style:normal;}.sh_default .sh_sourceCode .sh_comment{color:#ff8000;font-weight:normal;font-style:normal;}.sh_default .sh_sourceCode .sh_number{color:#800080;font-weight:bold;font-style:normal;}.sh_default .sh_sourceCode .sh_preproc{color:#0080c0;font-weight:bold;font-style:normal;}.sh_default .sh_sourceCode .sh_symbol{color:#ff0080;font-weight:bold;font-style:normal;}.sh_default .sh_sourceCode .sh_function{color:#046;font-weight:normal;font-style:normal;}.sh_default .sh_sourceCode .sh_cbracket{color:#ff0080;font-weight:bold;font-style:normal;}.sh_default .sh_sourceCode .sh_url{color:#a68500;font-weight:normal;font-style:normal;}.sh_default .sh_sourceCode .sh_date{color:#bb7977;font-weight:bold;font-style:normal;}.sh_default .sh_sourceCode .sh_time{color:#bb7977;font-weight:bold;font-style:normal;}.sh_default .sh_sourceCode .sh_file{color:#bb7977;font-weight:bold;font-style:normal;}.sh_default .sh_sourceCode .sh_ip{color:#a68500;font-weight:normal;font-style:normal;}.sh_default .sh_sourceCode .sh_name{color:#a68500;font-weight:normal;font-style:normal;}.sh_default .sh_sourceCode .sh_variable{color:#0080c0;font-weight:normal;font-style:normal;}.sh_default .sh_sourceCode .sh_oldfile{color:#f0f;font-weight:bold;font-style:normal;}.sh_default .sh_sourceCode .sh_newfile{color:#a68500;font-weight:normal;font-style:normal;}.sh_default .sh_sourceCode .sh_difflines{color:#bb7977;font-weight:bold;font-style:normal;}.sh_default .sh_sourceCode .sh_selector{color:#0080c0;font-weight:normal;font-style:normal;}.sh_default .sh_sourceCode .sh_property{color:#bb7977;font-weight:bold;font-style:normal;}.sh_default .sh_sourceCode .sh_value{color:#a68500;font-weight:normal;font-style:normal;}
+
+.sh_default-light {background:none; padding:0; margin:0; border:0 none;}.sh_default-light pre{background:none;color:#5c5c5c;font-weight:normal;font-style:normal;padding:0.5em!important;-moz-border-radius:3px!important;-webkit-border-radius:3px!important;border-radius:3px!important;-moz-box-shadow:0 0 0 transparent !important;-webkit-box-shadow:0 0 0 transparent !important;box-shadow:0 0 0 transparent !important;}.sh_default-light .snippet-formatted .snippet-num {margin:0;padding-left:4em;}.sh_default-light .sh_sourceCode li {background-color:#fff;border-left:3px solid #6ce26c;border-bottom:1px solid #ccc;}.sh_default-light .sh_sourceCode li:nth-child(odd) {background-color:#f8f8f8;}.sh_default-light .sh_sourceCode .sh_keyword{color:#bb7977;font-weight:bold;font-style:normal;}.sh_default-light .sh_sourceCode .sh_type{color:#8080c0;font-weight:bold;font-style:normal;}.sh_default-light-light .sh_sourceCode .sh_string{color:#a68500;font-weight:normal;font-style:normal;}.sh_default-light .sh_sourceCode .sh_regexp{color:#a68500;font-weight:normal;font-style:normal;}.sh_default-light .sh_sourceCode .sh_specialchar{color:#f0f;font-weight:bold;font-style:normal;}.sh_default-light .sh_sourceCode .sh_comment{color:#ff8000;font-weight:normal;font-style:normal;}.sh_default-light .sh_sourceCode .sh_number{color:#800080;font-weight:bold;font-style:normal;}.sh_default-light .sh_sourceCode .sh_preproc{color:#0080c0;font-weight:bold;font-style:normal;}.sh_default-light .sh_sourceCode .sh_symbol{color:#ff0080;font-weight:bold;font-style:normal;}.sh_default-light .sh_sourceCode .sh_function{color:#046;font-weight:normal;font-style:normal;}.sh_default-light .sh_sourceCode .sh_cbracket{color:#ff0080;font-weight:bold;font-style:normal;}.sh_default-light .sh_sourceCode .sh_url{color:#a68500;font-weight:normal;font-style:normal;}.sh_default-light .sh_sourceCode .sh_date{color:#bb7977;font-weight:bold;font-style:normal;}.sh_default-light .sh_sourceCode .sh_time{color:#bb7977;font-weight:bold;font-style:normal;}.sh_default-light .sh_sourceCode .sh_file{color:#bb7977;font-weight:bold;font-style:normal;}.sh_default-light .sh_sourceCode .sh_ip{color:#a68500;font-weight:normal;font-style:normal;}.sh_default-light .sh_sourceCode .sh_name{color:#a68500;font-weight:normal;font-style:normal;}.sh_default-light .sh_sourceCode .sh_variable{color:#0080c0;font-weight:normal;font-style:normal;}.sh_default-light .sh_sourceCode .sh_oldfile{color:#f0f;font-weight:bold;font-style:normal;}.sh_default-light .sh_sourceCode .sh_newfile{color:#a68500;font-weight:normal;font-style:normal;}.sh_default-light .sh_sourceCode .sh_difflines{color:#bb7977;font-weight:bold;font-style:normal;}.sh_default-light .sh_sourceCode .sh_selector{color:#0080c0;font-weight:normal;font-style:normal;}.sh_default-light .sh_sourceCode .sh_property{color:#bb7977;font-weight:bold;font-style:normal;}.sh_default-light .sh_sourceCode .sh_value{color:#a68500;font-weight:normal;font-style:normal;}
+
+.sh_default-dark{background:none; padding:0; margin:0; border:0 none;}.sh_default-dark pre{background-color:#000;color:#fff;font-weight:normal;font-style:normal;padding:0.5em!important;-moz-border-radius:0!important;-webkit-border-radius:0!important;border-radius:0!important;-moz-box-shadow:0 0 0  transparent !important;-webkit-box-shadow:0 0 0  transparent !important;box-shadow:0 0 0  transparent !important;}.sh_default-dark .snippet-formatted .snippet-num {margin:0;padding-left:4em;}.sh_default-dark .sh_sourceCode li {background-color:#000;}.sh_default-dark .sh_sourceCode li:nth-child(odd) {background-color:#333;}.sh_default-dark .sh_sourceCode .sh_keyword{color:#ff0;font-weight:bold;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_type{color:#0f0;font-weight:normal;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_string{color:#abab00;font-weight:bold;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_regexp{color:#abab00;font-weight:bold;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_specialchar{color:#bfbfbf;font-weight:normal;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_comment{color:#888;font-weight:normal;font-style:italic;}.sh_default-dark .sh_sourceCode .sh_number{color:#619de7;font-weight:normal;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_preproc{color:#1da3cf;font-weight:normal;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_symbol{color:#f0f;font-weight:normal;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_function{color:#f34627;font-weight:normal;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_cbracket{color:#f0f;font-weight:normal;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_url{color:#abab00;font-weight:bold;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_date{color:#ff0;font-weight:bold;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_time{color:#ff0;font-weight:bold;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_file{color:#ff0;font-weight:bold;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_ip{color:#abab00;font-weight:bold;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_name{color:#abab00;font-weight:bold;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_variable{color:#26e0e7;font-weight:normal;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_oldfile{color:#bfbfbf;font-weight:normal;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_newfile{color:#abab00;font-weight:bold;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_difflines{color:#ff0;font-weight:bold;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_selector{color:#26e0e7;font-weight:normal;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_property{color:#ff0;font-weight:bold;font-style:normal;}.sh_default-dark .sh_sourceCode .sh_value{color:#abab00;font-weight:bold;font-style:normal;}
+
+.sh_acid{background:none; padding:0; margin:0; border:0 none;}.sh_acid .sh_sourceCode{background-color:#eee;color:#000;font-weight:normal;font-style:normal;}.sh_acid .sh_sourceCode .sh_keyword{color:#bb7977;font-weight:bold;font-style:normal;}.sh_acid .sh_sourceCode .sh_type{color:#8080c0;font-weight:bold;font-style:normal;}.sh_acid .sh_sourceCode .sh_string{color:#a68500;font-weight:normal;font-style:normal;}.sh_acid .sh_sourceCode .sh_regexp{color:#a68500;font-weight:normal;font-style:normal;}.sh_acid .sh_sourceCode .sh_specialchar{color:#f0f;font-weight:bold;font-style:normal;}.sh_acid .sh_sourceCode .sh_comment{color:#ff8000;font-weight:normal;font-style:normal;}.sh_acid .sh_sourceCode .sh_number{color:#800080;font-weight:bold;font-style:normal;}.sh_acid .sh_sourceCode .sh_preproc{color:#0080c0;font-weight:bold;font-style:normal;}.sh_acid .sh_sourceCode .sh_symbol{color:#ff0080;font-weight:bold;font-style:normal;}.sh_acid .sh_sourceCode .sh_function{color:#046;font-weight:normal;font-style:normal;}.sh_acid .sh_sourceCode .sh_cbracket{color:#ff0080;font-weight:bold;font-style:normal;}.sh_acid .sh_sourceCode .sh_url{color:#a68500;font-weight:normal;font-style:normal;}.sh_acid .sh_sourceCode .sh_date{color:#bb7977;font-weight:bold;font-style:normal;}.sh_acid .sh_sourceCode .sh_time{color:#bb7977;font-weight:bold;font-style:normal;}.sh_acid .sh_sourceCode .sh_file{color:#bb7977;font-weight:bold;font-style:normal;}.sh_acid .sh_sourceCode .sh_ip{color:#a68500;font-weight:normal;font-style:normal;}.sh_acid .sh_sourceCode .sh_name{color:#a68500;font-weight:normal;font-style:normal;}.sh_acid .sh_sourceCode .sh_variable{color:#0080c0;font-weight:normal;font-style:normal;}.sh_acid .sh_sourceCode .sh_oldfile{color:#f0f;font-weight:bold;font-style:normal;}.sh_acid .sh_sourceCode .sh_newfile{color:#a68500;font-weight:normal;font-style:normal;}.sh_acid .sh_sourceCode .sh_difflines{color:#bb7977;font-weight:bold;font-style:normal;}.sh_acid .sh_sourceCode .sh_selector{color:#0080c0;font-weight:normal;font-style:normal;}.sh_acid .sh_sourceCode .sh_property{color:#bb7977;font-weight:bold;font-style:normal;}.sh_acid .sh_sourceCode .sh_value{color:#a68500;font-weight:normal;font-style:normal;}
+
+.sh_blacknblue{background:none; padding:0; margin:0; border:0 none;}.sh_blacknblue .sh_sourceCode{background-color:#000;color:#2346d5;font-weight:normal;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_keyword{color:#1ededc;font-weight:bold;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_type{color:#c06cf8;font-weight:bold;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_string{color:#cfc631;font-weight:normal;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_regexp{color:#cfc631;font-weight:normal;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_specialchar{color:#ccc6c6;font-weight:normal;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_comment{color:#6fb2c4;font-weight:normal;font-style:italic;}.sh_blacknblue .sh_sourceCode .sh_number{color:#c4ac60;font-weight:normal;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_preproc{color:#8080ff;font-weight:normal;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_symbol{color:#ccc6c6;font-weight:normal;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_function{color:#1c96ed;font-weight:normal;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_cbracket{color:#ccc6c6;font-weight:normal;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_url{color:#cfc631;font-weight:normal;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_date{color:#1ededc;font-weight:bold;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_time{color:#1ededc;font-weight:bold;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_file{color:#1ededc;font-weight:bold;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_ip{color:#cfc631;font-weight:normal;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_name{color:#cfc631;font-weight:normal;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_variable{color:#ecea26;font-weight:normal;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_oldfile{color:#ccc6c6;font-weight:normal;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_newfile{color:#cfc631;font-weight:normal;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_difflines{color:#1ededc;font-weight:bold;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_selector{color:#ecea26;font-weight:normal;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_property{color:#1ededc;font-weight:bold;font-style:normal;}.sh_blacknblue .sh_sourceCode .sh_value{color:#cfc631;font-weight:normal;font-style:normal;}
+
+.sh_bright{background:none; padding:0; margin:0; border:0 none;}.sh_bright .sh_sourceCode{background-color:#fff;color:#401e7a;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_keyword{color:#ff3030;font-weight:bold;font-style:normal;}.sh_bright .sh_sourceCode .sh_type{color:#f7b92c;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_string{color:#1861a7;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_regexp{color:#1861a7;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_specialchar{color:#1861a7;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_comment{color:#38ad24;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_number{color:#32ba06;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_preproc{color:#5374b0;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_symbol{color:#3030ee;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_function{color:#d11ced;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_cbracket{color:#3030ee;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_url{color:#1861a7;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_date{color:#ff3030;font-weight:bold;font-style:normal;}.sh_bright .sh_sourceCode .sh_time{color:#ff3030;font-weight:bold;font-style:normal;}.sh_bright .sh_sourceCode .sh_file{color:#ff3030;font-weight:bold;font-style:normal;}.sh_bright .sh_sourceCode .sh_ip{color:#1861a7;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_name{color:#1861a7;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_variable{color:#00f;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_oldfile{color:#1861a7;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_newfile{color:#1861a7;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_difflines{color:#ff3030;font-weight:bold;font-style:normal;}.sh_bright .sh_sourceCode .sh_selector{color:#00f;font-weight:normal;font-style:normal;}.sh_bright .sh_sourceCode .sh_property{color:#ff3030;font-weight:bold;font-style:normal;}.sh_bright .sh_sourceCode .sh_value{color:#1861a7;font-weight:normal;font-style:normal;}
+
+.sh_darkblue{background:none; padding:0; margin:0; border:0 none;}.sh_darkblue .sh_sourceCode{background-color:#000040;color:#C7C7C7;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_keyword{color:#ffff60;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_type{color:#60ff60;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_string{color:#ffa0a0;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_regexp{color:#ffa0a0;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_specialchar{color:#ffa500;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_comment{color:#80a0ff;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_number{color:#42cad9;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_preproc{color:#ff80ff;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_symbol{color:#d8e91b;font-weight:bold;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_function{color:#fff;font-weight:bold;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_cbracket{color:#d8e91b;font-weight:bold;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_url{color:#ffa0a0;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_date{color:#ffff60;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_time{color:#ffff60;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_file{color:#ffff60;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_ip{color:#ffa0a0;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_name{color:#ffa0a0;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_variable{color:#26e0e7;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_oldfile{color:#ffa500;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_newfile{color:#ffa0a0;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_difflines{color:#ffff60;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_selector{color:#26e0e7;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_property{color:#ffff60;font-weight:normal;font-style:normal;}.sh_darkblue .sh_sourceCode .sh_value{color:#ffa0a0;font-weight:normal;font-style:normal;}
+
+.sh_dull{background:none; padding:0; margin:0; border:0 none;}.sh_dull .sh_sourceCode{background-color:#bfbfbf;color:#656565;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_keyword{color:#353535;font-weight:bold;font-style:normal;}.sh_dull .sh_sourceCode .sh_type{color:#3241c6;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_string{color:#059;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_regexp{color:#059;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_specialchar{color:#059;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_comment{color:#d11d20;font-weight:normal;font-style:italic;}.sh_dull .sh_sourceCode .sh_number{color:#16930d;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_preproc{color:#003;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_symbol{color:#222;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_function{color:#38255c;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_cbracket{color:#222;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_url{color:#059;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_date{color:#353535;font-weight:bold;font-style:normal;}.sh_dull .sh_sourceCode .sh_time{color:#353535;font-weight:bold;font-style:normal;}.sh_dull .sh_sourceCode .sh_file{color:#353535;font-weight:bold;font-style:normal;}.sh_dull .sh_sourceCode .sh_ip{color:#059;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_name{color:#059;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_variable{color:#ae5a16;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_oldfile{color:#059;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_newfile{color:#059;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_difflines{color:#353535;font-weight:bold;font-style:normal;}.sh_dull .sh_sourceCode .sh_selector{color:#ae5a16;font-weight:normal;font-style:normal;}.sh_dull .sh_sourceCode .sh_property{color:#353535;font-weight:bold;font-style:normal;}.sh_dull .sh_sourceCode .sh_value{color:#059;font-weight:normal;font-style:normal;}
+
+.sh_easter{background:none; padding:0; margin:0; border:0 none;}.sh_easter .sh_sourceCode{background-color:#ffff80;color:#2C7B34;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_keyword{color:#1d45d6;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_type{color:#ed0f55;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_string{color:#ca4be3;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_regexp{color:#ca4be3;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_specialchar{color:#ca4be3;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_comment{color:#24c815;font-weight:normal;font-style:italic;}.sh_easter .sh_sourceCode .sh_number{color:#e11a70;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_preproc{color:#1583b1;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_symbol{color:#fa4700;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_function{color:#1d45d6;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_cbracket{color:#fa4700;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_url{color:#ca4be3;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_date{color:#1d45d6;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_time{color:#1d45d6;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_file{color:#1d45d6;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_ip{color:#ca4be3;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_name{color:#ca4be3;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_variable{color:#26aae7;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_oldfile{color:#ca4be3;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_newfile{color:#ca4be3;font-weight:normal;font-style:normal;}.sh_easter .sh_sourceCode .sh_difflines{color:#1d45d6;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_selector{color:#26aae7;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_property{color:#1d45d6;font-weight:bold;font-style:normal;}.sh_easter .sh_sourceCode .sh_value{color:#ca4be3;font-weight:normal;font-style:normal;}
+
+.sh_emacs{background:none; padding:0; margin:0; border:0 none;}.sh_emacs .sh_sourceCode{background-color:#fff;color:#000;font-weight:normal;font-style:normal;}.sh_emacs .sh_sourceCode .sh_keyword{color:#9c20ee;font-weight:bold;font-style:normal;}.sh_emacs .sh_sourceCode .sh_type{color:#208920;font-weight:normal;font-style:normal;}.sh_emacs .sh_sourceCode .sh_string{color:#bd8d8b;font-weight:normal;font-style:normal;}.sh_emacs .sh_sourceCode .sh_regexp{color:#bd8d8b;font-weight:normal;font-style:normal;}.sh_emacs .sh_sourceCode .sh_specialchar{color:#bd8d8b;font-weight:normal;font-style:normal;}.sh_emacs .sh_sourceCode .sh_comment{color:#ac2020;font-weight:normal;font-style:italic;}.sh_emacs .sh_sourceCode .sh_number{color:#000;font-weight:normal;font-style:normal;}.sh_emacs .sh_sourceCode .sh_preproc{color:#000;font-weight:normal;font-style:normal;}.sh_emacs .sh_sourceCode .sh_function{color:#000;font-weight:normal;font-style:normal;}.sh_emacs .sh_sourceCode .sh_url{color:#bd8d8b;font-weight:normal;font-style:normal;}.sh_emacs .sh_sourceCode .sh_date{color:#9c20ee;font-weight:bold;font-style:normal;}.sh_emacs .sh_sourceCode .sh_time{color:#9c20ee;font-weight:bold;font-style:normal;}.sh_emacs .sh_sourceCode .sh_file{color:#9c20ee;font-weight:bold;font-style:normal;}.sh_emacs .sh_sourceCode .sh_ip{color:#bd8d8b;font-weight:normal;font-style:normal;}.sh_emacs .sh_sourceCode .sh_name{color:#bd8d8b;font-weight:normal;font-style:normal;}.sh_emacs .sh_sourceCode .sh_variable{color:#00f;font-weight:normal;font-style:normal;}.sh_emacs .sh_sourceCode .sh_oldfile{color:#bd8d8b;font-weight:normal;font-style:normal;}.sh_emacs .sh_sourceCode .sh_newfile{color:#bd8d8b;font-weight:normal;font-style:normal;}.sh_emacs .sh_sourceCode .sh_difflines{color:#9c20ee;font-weight:bold;font-style:normal;}.sh_emacs .sh_sourceCode .sh_selector{color:#00f;font-weight:normal;font-style:normal;}.sh_emacs .sh_sourceCode .sh_property{color:#9c20ee;font-weight:bold;font-style:normal;}.sh_emacs .sh_sourceCode .sh_value{color:#bd8d8b;font-weight:normal;font-style:normal;}
+
+.sh_golden{background:none; padding:0; margin:0; border:0 none;}.sh_golden .sh_sourceCode{background-color:#000;color:#db0;font-weight:normal;font-style:normal;}.sh_golden .sh_sourceCode .sh_keyword{color:#ffed8a;font-weight:bold;font-style:normal;}.sh_golden .sh_sourceCode .sh_type{color:#ffed8a;font-weight:normal;font-style:normal;}.sh_golden .sh_sourceCode .sh_string{color:#f00;font-weight:normal;font-style:normal;}.sh_golden .sh_sourceCode .sh_regexp{color:#f00;font-weight:normal;font-style:normal;}.sh_golden .sh_sourceCode .sh_specialchar{color:#f00;font-weight:normal;font-style:normal;}.sh_golden .sh_sourceCode .sh_comment{color:#978345;font-weight:normal;font-style:italic;}.sh_golden .sh_sourceCode .sh_number{color:#fff;font-weight:normal;font-style:normal;}.sh_golden .sh_sourceCode .sh_preproc{color:#fda;font-weight:normal;font-style:normal;}.sh_golden .sh_sourceCode .sh_symbol{color:#ababab;font-weight:normal;font-style:normal;}.sh_golden .sh_sourceCode .sh_function{color:#db0;font-weight:bold;font-style:normal;}.sh_golden .sh_sourceCode .sh_cbracket{color:#ababab;font-weight:normal;font-style:normal;}.sh_golden .sh_sourceCode .sh_url{color:#f00;font-weight:normal;font-style:normal;}.sh_golden .sh_sourceCode .sh_date{color:#ffed8a;font-weight:bold;font-style:normal;}.sh_golden .sh_sourceCode .sh_time{color:#ffed8a;font-weight:bold;font-style:normal;}.sh_golden .sh_sourceCode .sh_file{color:#ffed8a;font-weight:bold;font-style:normal;}.sh_golden .sh_sourceCode .sh_ip{color:#f00;font-weight:normal;font-style:normal;}.sh_golden .sh_sourceCode .sh_name{color:#f00;font-weight:normal;font-style:normal;}.sh_golden .sh_sourceCode .sh_variable{color:#dedede;font-weight:bold;font-style:normal;}.sh_golden .sh_sourceCode .sh_oldfile{color:#f00;font-weight:normal;font-style:normal;}.sh_golden .sh_sourceCode .sh_newfile{color:#f00;font-weight:normal;font-style:normal;}.sh_golden .sh_sourceCode .sh_difflines{color:#ffed8a;font-weight:bold;font-style:normal;}.sh_golden .sh_sourceCode .sh_selector{color:#dedede;font-weight:bold;font-style:normal;}.sh_golden .sh_sourceCode .sh_property{color:#ffed8a;font-weight:bold;font-style:normal;}.sh_golden .sh_sourceCode .sh_value{color:#f00;font-weight:normal;font-style:normal;}
+
+.sh_greenlcd{background:none; padding:0; margin:0; border:0 none;}.sh_greenlcd .sh_sourceCode{background-color:#003400;color:#0b0;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_keyword{color:#00ed00;font-weight:bold;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_type{color:#00ed00;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_string{color:#dfdfdf;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_regexp{color:#dfdfdf;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_specialchar{color:#dfdfdf;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_comment{color:#888;font-weight:normal;font-style:italic;}.sh_greenlcd .sh_sourceCode .sh_number{color:#fff;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_preproc{color:#bfbfbf;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_symbol{color:#2fe7a9;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_function{color:#c0ff73;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_cbracket{color:#2fe7a9;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_url{color:#dfdfdf;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_date{color:#00ed00;font-weight:bold;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_time{color:#00ed00;font-weight:bold;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_file{color:#00ed00;font-weight:bold;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_ip{color:#dfdfdf;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_name{color:#dfdfdf;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_variable{color:#beef13;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_oldfile{color:#dfdfdf;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_newfile{color:#dfdfdf;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_difflines{color:#00ed00;font-weight:bold;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_selector{color:#beef13;font-weight:normal;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_property{color:#00ed00;font-weight:bold;font-style:normal;}.sh_greenlcd .sh_sourceCode .sh_value{color:#dfdfdf;font-weight:normal;font-style:normal;}
+
+.sh_night{background:none; padding:0; margin:0; border:0 none;}.sh_night .sh_sourceCode{background-color:#004;color:#d0f;font-weight:normal;font-style:normal;}.sh_night .sh_sourceCode .sh_keyword{color:#fff;font-weight:bold;font-style:normal;}.sh_night .sh_sourceCode .sh_type{color:#f1157c;font-weight:bold;font-style:normal;}.sh_night .sh_sourceCode .sh_string{color:#fff;font-weight:normal;font-style:normal;}.sh_night .sh_sourceCode .sh_regexp{color:#fff;font-weight:normal;font-style:normal;}.sh_night .sh_sourceCode .sh_specialchar{color:#82d66d;font-weight:normal;font-style:normal;}.sh_night .sh_sourceCode .sh_comment{color:#bfbfbf;font-weight:normal;font-style:normal;}.sh_night .sh_sourceCode .sh_number{color:#8ee119;font-weight:normal;font-style:normal;}.sh_night .sh_sourceCode .sh_preproc{color:#0b0;font-weight:normal;font-style:normal;}.sh_night .sh_sourceCode .sh_symbol{color:#e7ee5c;font-weight:bold;font-style:normal;}.sh_night .sh_sourceCode .sh_function{color:#ff06cd;font-weight:bold;font-style:normal;}.sh_night .sh_sourceCode .sh_cbracket{color:#e7ee5c;font-weight:bold;font-style:normal;}.sh_night .sh_sourceCode .sh_url{color:#fff;font-weight:normal;font-style:normal;}.sh_night .sh_sourceCode .sh_date{color:#fff;font-weight:bold;font-style:normal;}.sh_night .sh_sourceCode .sh_time{color:#fff;font-weight:bold;font-style:normal;}.sh_night .sh_sourceCode .sh_file{color:#fff;font-weight:bold;font-style:normal;}.sh_night .sh_sourceCode .sh_ip{color:#fff;font-weight:normal;font-style:normal;}.sh_night .sh_sourceCode .sh_name{color:#fff;font-weight:normal;font-style:normal;}.sh_night .sh_sourceCode .sh_variable{color:#7aec27;font-weight:bold;font-style:normal;}.sh_night .sh_sourceCode .sh_oldfile{color:#82d66d;font-weight:normal;font-style:normal;}.sh_night .sh_sourceCode .sh_newfile{color:#fff;font-weight:normal;font-style:normal;}.sh_night .sh_sourceCode .sh_difflines{color:#fff;font-weight:bold;font-style:normal;}.sh_night .sh_sourceCode .sh_selector{color:#7aec27;font-weight:bold;font-style:normal;}.sh_night .sh_sourceCode .sh_property{color:#fff;font-weight:bold;font-style:normal;}.sh_night .sh_sourceCode .sh_value{color:#fff;font-weight:normal;font-style:normal;}
+
+.sh_print{background:none; padding:0; margin:0; border:0 none;}.sh_print .sh_sourceCode{background-color:#fff;color:#000;font-weight:normal;font-style:normal;}.sh_print .sh_sourceCode .sh_keyword{color:#000;font-weight:bold;font-style:normal;}.sh_print .sh_sourceCode .sh_type{color:#000;font-weight:bold;font-style:normal;}.sh_print .sh_sourceCode .sh_string{color:#000;font-weight:normal;font-style:normal;}.sh_print .sh_sourceCode .sh_regexp{color:#000;font-weight:normal;font-style:normal;}.sh_print .sh_sourceCode .sh_specialchar{color:#000;font-weight:normal;font-style:normal;}.sh_print .sh_sourceCode .sh_comment{color:#666;font-weight:normal;font-style:italic;}.sh_print .sh_sourceCode .sh_number{color:#000;font-weight:normal;font-style:normal;}.sh_print .sh_sourceCode .sh_preproc{color:#000;font-weight:bold;font-style:normal;}.sh_print .sh_sourceCode .sh_symbol{color:#000;font-weight:bold;font-style:normal;}.sh_print .sh_sourceCode .sh_cbracket{color:#000;font-weight:bold;font-style:normal;}.sh_print .sh_sourceCode .sh_url{color:#000;font-weight:normal;font-style:normal;}.sh_print .sh_sourceCode .sh_date{color:#000;font-weight:bold;font-style:normal;}.sh_print .sh_sourceCode .sh_time{color:#000;font-weight:bold;font-style:normal;}.sh_print .sh_sourceCode .sh_file{color:#000;font-weight:bold;font-style:normal;}.sh_print .sh_sourceCode .sh_ip{color:#000;font-weight:normal;font-style:normal;}.sh_print .sh_sourceCode .sh_name{color:#000;font-weight:normal;font-style:normal;}.sh_print .sh_sourceCode .sh_variable{color:#000;font-weight:bold;font-style:normal;}.sh_print .sh_sourceCode .sh_oldfile{color:#000;font-weight:normal;font-style:normal;}.sh_print .sh_sourceCode .sh_newfile{color:#000;font-weight:normal;font-style:normal;}.sh_print .sh_sourceCode .sh_difflines{color:#000;font-weight:bold;font-style:normal;}.sh_print .sh_sourceCode .sh_selector{color:#000;font-weight:bold;font-style:normal;}.sh_print .sh_sourceCode .sh_property{color:#000;font-weight:bold;font-style:normal;}.sh_print .sh_sourceCode .sh_value{color:#000;font-weight:normal;font-style:normal;}
+
+.sh_vim{background:none; padding:0; margin:0; border:0 none;}.sh_vim .sh_sourceCode{background-color:#fff;color:#000;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_keyword{color:#B26818;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_type{color:#0f0;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_string{color:#f00;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_regexp{color:#f00;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_specialchar{color:#f2f;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_comment{color:#00f;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_number{color:#f00;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_preproc{color:#f2f;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_function{color:#000;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_url{color:#f00;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_date{color:#B26818;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_time{color:#B26818;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_file{color:#B26818;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_ip{color:#f00;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_name{color:#f00;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_variable{color:#B26818;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_oldfile{color:#f2f;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_newfile{color:#f00;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_difflines{color:#B26818;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_selector{color:#B26818;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_property{color:#B26818;font-weight:normal;font-style:normal;}.sh_vim .sh_sourceCode .sh_value{color:#f00;font-weight:normal;font-style:normal;}
+
+.sh_whatis{background:none; padding:0; margin:0; border:0 none;}.sh_whatis .sh_sourceCode{background-color:#000;color:#0f0;font-weight:normal;font-style:normal;}.sh_whatis .sh_sourceCode .sh_keyword{color:#fa5a03;font-weight:bold;font-style:normal;}.sh_whatis .sh_sourceCode .sh_type{color:#fff;font-weight:bold;font-style:normal;}.sh_whatis .sh_sourceCode .sh_string{color:#fb0;font-weight:normal;font-style:normal;}.sh_whatis .sh_sourceCode .sh_regexp{color:#fb0;font-weight:normal;font-style:normal;}.sh_whatis .sh_sourceCode .sh_specialchar{color:#fb0;font-weight:normal;font-style:normal;}.sh_whatis .sh_sourceCode .sh_comment{color:#f00;font-weight:normal;font-style:normal;}.sh_whatis .sh_sourceCode .sh_number{color:#ff0;font-weight:normal;font-style:normal;}.sh_whatis .sh_sourceCode .sh_preproc{color:#bfbfbf;font-weight:normal;font-style:normal;}.sh_whatis .sh_sourceCode .sh_symbol{color:#0ff;font-weight:normal;font-style:normal;}.sh_whatis .sh_sourceCode .sh_function{color:#e721d3;font-weight:normal;font-style:normal;}.sh_whatis .sh_sourceCode .sh_cbracket{color:#0ff;font-weight:normal;font-style:normal;}.sh_whatis .sh_sourceCode .sh_url{color:#fb0;font-weight:normal;font-style:normal;}.sh_whatis .sh_sourceCode .sh_date{color:#fa5a03;font-weight:bold;font-style:normal;}.sh_whatis .sh_sourceCode .sh_time{color:#fa5a03;font-weight:bold;font-style:normal;}.sh_whatis .sh_sourceCode .sh_file{color:#fa5a03;font-weight:bold;font-style:normal;}.sh_whatis .sh_sourceCode .sh_ip{color:#fb0;font-weight:normal;font-style:normal;}.sh_whatis .sh_sourceCode .sh_name{color:#fb0;font-weight:normal;font-style:normal;}.sh_whatis .sh_sourceCode .sh_variable{color:#efe219;font-weight:bold;font-style:normal;}.sh_whatis .sh_sourceCode .sh_oldfile{color:#fb0;font-weight:normal;font-style:normal;}.sh_whatis .sh_sourceCode .sh_newfile{color:#fb0;font-weight:normal;font-style:normal;}.sh_whatis .sh_sourceCode .sh_difflines{color:#fa5a03;font-weight:bold;font-style:normal;}.sh_whatis .sh_sourceCode .sh_selector{color:#efe219;font-weight:bold;font-style:normal;}.sh_whatis .sh_sourceCode .sh_property{color:#fa5a03;font-weight:bold;font-style:normal;}.sh_whatis .sh_sourceCode .sh_value{color:#fb0;font-weight:normal;font-style:normal;}
+
+
+    .snippet-textonly:focus {background:#333 !important;color:#fff !important;}
+    .snippet-wrap pre { margin:5px 0; padding:0;}
+    .snippet-wrap .snippet-menu a, .snippet-wrap .snippet-hide a {padding:0 5px;}
+    .snippet-wrap pre.sh_sourceCode{padding:1em;line-height:1.8em;overflow:auto;position:relative;-moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;box-shadow: 2px 2px 5px #000;-moz-box-shadow: 2px 2px 5px #000;-webkit-box-shadow: 2px 2px 5px #000;}
+    .snippet-wrap pre.snippet-textonly {padding:2em;}
+    .snippet-wrap pre.snippet-formatted {*padding:2em 1em;}
+    .snippet-reveal pre.sh_sourceCode {padding:.5em 1em; text-align:right;}
+    .snippet-wrap .snippet-num li{padding-left:1.5em;}
+    .snippet-wrap .snippet-no-num{list-style:none; padding:0; margin:0;}
+    .snippet-wrap .snippet-no-num li {list-style:none; padding-left:0;}
+    .snippet-wrap .snippet-num {margin:1em 0 1em 1em; padding-left:3em;}
+    .snippet-wrap .snippet-num li {list-style:decimal-leading-zero outside none;}
+    .snippet-wrap .snippet-no-num li.box {padding:0 6px; margin-left:-6px;}
+    .snippet-wrap .snippet-num li.box {border:1px solid; list-style-position:inside; margin-left:-3em; padding-left:6px;}
+    .snippet-wrap .snippet-num li.box {*margin-left:-2.4em;}
+    .snippet-wrap li.box-top {border-width:1px 1px 0 !important;}
+    .snippet-wrap li.box-bot {border-width:0 1px 1px !important;}
+    .snippet-wrap li.box-mid {border-width:0 1px !important;}
+    .snippet-wrap .snippet-num li .box-sp {width:18px; display:inline-block;}
+    .snippet-wrap .snippet-num li .box-sp {*width:27px;}
+    .snippet-wrap .snippet-no-num li.box {border:1px solid;}
+    .snippet-wrap .snippet-no-num li .box-sp {display:none;}
+    /**
+     * STYLE the menu and toggle link here
+     */
+    .snippet-container .snippet-menu {border-radius:3px;background:#fff;padding:2px 5px 3px;display:inline-block;*display:inline;zoom:1;}
+    .snippet-container .sh_url,
+    .snippet-wrap .snippet-toggle {
+        text-decoration:none !important;font:12px sans-serif !important;
+    }
+    .snippet-window {border-right-width:1px;border-right-style:solid}
+    .snippet-wrap .snippet-toggle  {display:block;}
+    /**
+     * toggle for the collapse options
+     */
+    .snippet-hide pre{background:#fff !important;}
+    .snippet-hide pre a{color:#333 !important;}
+
+
+</style>
+
+    <link rel="author" href="humans.txt" />
+
+</head>
+
+<body>
+<a href="https://github.com/thierryk/Syntaxhighlight.in"><img style="z-index:1; position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/e6bef7a091f5f3138b8cd40bc3e114258dd68ddf/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub"></a>
+<div id="header">
+    <div class="wrapper">
+        <a height="70" class="logo" href="/"><img src="img/logo.png" alt="Syntax Highlight.in" /></a>
+    </div>
+</div>
+<div id="intro" class="section">
+    <div class="wrapper">
+    <h1>An online tool to display formatted source code</h1>
+    <div id="hero"><img height="140" width="700" src="img/hero.png" alt="" /></div>
+    <ul>
+        <li>No dynamic styling (no FOUC - Flash Of Unstyled Content)</li>
+        <li>Small footprint - no JavaScript brush to load (JS + CSS is about 6kb)</li>
+        <li>Users can open the code in a popup window for easy printing</li>
+        <li>Users can swap between formatted and non-formatted views</li>
+        <li>Users can collapse and expand large snippets</li>
+        <li>Users can navigate the options via the keyboard</li>
+        <li>Developers can choose to emphasize arbitrary line(s)</li>
+        <li>Developers can turn line numbering on or off</li>
+        <li>URLs inside formatted snippets are click-able</li>
+    </ul>
+    </div>
+</div>
+<!--
+    #1 dropzone
+    user drop their code in this textarea that code is then moved into a <pre>
+    user select: toggle feature, language, style, and line number
+-->
+<div id="step1" class="section">
+    <h2 class="offScreen">Syntax Highlighting Options</h2>
+    <form class="wrapper" action="">
+        <textarea id="dropZone" class="well"  data-placement="above" rel="twipsy" title="Drop your code here!" resize></textarea>
+        <fieldset id="toggleControls" data-placement="above" rel="twipsy" title="">
+            <div class="fl">
+                <legend id="toggleOption" data-placement="above" rel="twipsy" title="Users can toggle the snippet (open/close)">Do you want a show/hide-effect with that?</legend>
+            </div>
+            <div class="bfc">
+                <label for="noCollapsing" data-placement="above" rel="twipsy" title="" class="selected"><input name="toggle" type="radio" id="noCollapsing" checked="checked">No</label>
+                <label for="startCollapsing" data-placement="above" rel="twipsy" title="Closed when the  page loads"><input name="toggle" type="radio" id="startCollapsing"> Closed</label>
+                <label for="collapsing" data-placement="above" rel="twipsy" title="Opened when the page loads"><input name="toggle" type="radio" id="collapsing"> Expanded</label>
+            </div>
+        </fieldset>
+        <div id="options">
+            <div class="inlineBox select">
+                <label for="language_selected" data-placement="above" rel="twipsy" title="Select the language of your snippet">Language</label>
+                <select id="language_selected">
+                    <option value="c">C</option>
+                    <option value="cpp">C++</option>
+                    <option value="csharp">C#</option>
+                    <option value="css">CSS</option>
+                    <option value="flex">Flex</option>
+                    <option value="html">HTML</option>
+                    <option value="java">Java</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="javascript_dom">JavaScript with DOM</option>
+                    <option value="perl">Perl</option>
+                    <option value="php">PHP</option>
+                    <option value="python">Python</option>
+                    <option value="ruby">Ruby</option>
+                    <option value="sql">SQL</option>
+                    <option value="xml">XML</option>
+                </select>
+            </div>
+            <div class="inlineBox select">
+                <label for="style_selected" data-placement="above" rel="twipsy" title="Select a theme for your snippet">Theme</label>
+                <select id="style_selected">
+                    <option value="default">Default</option>
+                    <option value="default-dark">Default Dark</option>
+                    <option value="default-light">Default Light</option>
+                    <option value="acid">Acid</option>
+                    <option value="blacknblue">Black n' Blue</option>
+                    <option value="bright">Bright</option>
+                    <option value="darkblue">Dark Blue</option>
+                    <option value="dull">Dull</option>
+                    <option value="easter">Easter</option>
+                    <option value="emacs">emacs</option>
+                    <option value="golden">Golden</option>
+                    <option value="greenlcd">Green LCD</option>
+                    <option value="night">Night</option>
+                    <option value="print">Print</option>
+                    <option value="vim">Vim</option>
+                    <option value="whatis">What is</option>
+                </select>
+            </div>
+            <div class="inlineBox">
+                <label id="checkBox" class="selected bfc" for="lineNumber" data-placement="above" rel="twipsy" title="Should the snippet show line numbers?"><input type="checkbox" checked="checked" id="lineNumber"> Show line number</label>
+            </div>
+        </div>
+        <input id="backgroundColor" class="well fl" type="text" placeholder="white" data-placement="above" rel="twipsy" title="Set a background color here so it matches your own page.">
+        <label id="backgroundColorLabel" for="backgroundColor"><b>Optional</b> The background color of your page (<code>HEX</code>, <code>RGB</code>, <code>Keyword</code>, ...).</label>
+        <fieldset id="lineOption">
+            <label for="boxStyling">Highlighting lines</label>
+            <input id="boxStyling" type="text" value="">
+            <span class="help-block">For example: 2,4-6 will draw a box around line 2, and another box around lines 4 through 6.</span>
+            <label for="boxColorStyling">Border color</label>
+            <input id="boxColorStyling" type="text" value="">
+            <label for="boxFillStyling">Background color</label>
+            <input id="boxFillStyling" type="text" value="">
+        </fieldset>
+        <div class="buttons">
+            <button type="reset" class="startOver" disabled="disabled">Start Over</button>
+            <button type="button" class="doneButton" disabled="disabled">Done!</button>
+        </div>
+    </form>
+</div>
+<!--
+    #2 this step has been combined with the next
+-->
+<!--
+    #3 reveals the JavaScript and CSS to copy for the formatted snippet
+-->
+<div id="step3" class="section">
+</div>
+<!--
+    #4 syntax highlighting
+-->
+<div id="step4" class="section">
+    <div class="wrapper">
+        <h2>Your snippet</h2>
+        <!--
+            The content of the textarea is copied to this <pre>
+            Once formatted, the content of "theWholeEnchilada" can be copied to the clipboard
+        -->
+        <div id="theWholeEnchilada">
+            <pre class="shi_pre"></pre>
+        </div>
+    </div>
+</div>
+<!--
+    #5 what to do: copy to clipboard, copy the JavaScript snippet, and copy the CSS rules
+    Depending on usage, people may keep everything inline
+-->
+<div id="step5" class="section">
+    <div class="wrapper">
+        <h2>Now do this:</h2>
+        <dl id="theStuff">
+            <dt class="fl">➽ Download the CSS file: </dt>
+            <dd class="themeLink" id="acid"><a target="newWin" href="/shi/css/shi_acid.min.css">shi_acid.min.css</a></dd>
+            <dd class="themeLink" id="blacknblue"><a target="newWin" href="/shi/css/shi_blacknblue.min.css">shi_blacknblue.min.css</a></dd>
+            <dd class="themeLink" id="bright"><a target="newWin" href="/shi/css/shi_bright.min.css">shi_bright.min.css</a></dd>
+            <dd class="themeLink" id="darkblue"><a target="newWin" href="/shi/css/shi_darkblue.min.css">shi_darkblue.min.css</a></dd>
+            <dd class="themeLink" id="default-dark"><a target="newWin" href="/shi/css/shi_default-dark.min.css">shi_default-dark.min.css</a></dd>
+            <dd class="themeLink" id="default-light"><a target="newWin" href="/shi/css/shi_default-light.min.css">shi_default-light.min.css</a></dd>
+            <dd class="themeLink" id="default"><a target="newWin" href="/shi/css/shi_default.min.css">shi_default.min.css</a></dd>
+            <dd class="themeLink" id="easter"><a target="newWin" href="/shi/css/shi_easter.min.css">shi_easter.min.css</a></dd>
+            <dd class="themeLink" id="emacs"><a target="newWin" href="/shi/css/shi_emacs.min.css">shi_emacs.min.css</a></dd>
+            <dd class="themeLink" id="golden"><a target="newWin" href="/shi/css/shi_golden.min.css">shi_golden.min.css</a></dd>
+            <dd class="themeLink" id="greenlcd"><a target="newWin" href="/shi/css/shi_greenlcd.min.css">shi_greenlcd.min.css</a></dd>
+            <dd class="themeLink" id="night"><a target="newWin" href="/shi/css/shi_night.min.css">shi_night.min.css</a></dd>
+            <dd class="themeLink" id="print"><a target="newWin" href="/shi/css/shi_print.min.css">shi_print.min.css</a></dd>
+            <dd class="themeLink" id="vim"><a target="newWin" href="/shi/css/shi_vim.min.css">shi_vim.min.css</a></dd>
+            <dd class="themeLink" id="whatis"><a target="newWin" href="/shi/css/shi_whatis.min.css">shi_whatis.min.css</a></dd>
+            <dt class="fl">➽ Download the JavaScript file:</dt>
+            <dd class="jsLink"><a title="For JQuery" target="newWin" href="/shi/js/shi_jquery.min.js">shi_jquery.min.js</a></dd>
+            <dt>➽ Copy the Markup below:</dt>
+            <dd>
+                <textarea id="htmlToCopy" class="well"></textarea>
+            </dd>
+        </dl>
+        <p id="put">➽ Put the Javascript code at the end of your document (near <code>&lt;/body&gt;</code>) and the CSS rules in the <code>&lt;head&gt;</code> of your page. The HTML goes inside <code>&lt;body&gt;</code>, wherever you want the snippet to appear.</p>
+        <p class="important"><b>Important</b> If your page already contains the CSS/JS files then you only have to copy the HTML.</p>
+        <div class="buttons">
+            <button type="reset" class="startOver">Start Over</button>
+        </div>
+    </div>
+</div>
+<!--
+    #footer
+-->
+<div id="footer">
+    <div class="wrapper">
+        <p class="fr"><a title="Follow me on Twitter!" href="http://twitter.com/thierrykoblentz"><img alt="Twitter" src="img/twitter.png" /></a></p>
+        syntaxhighlight.in is built on top of <a href="http://www.steamdev.com/snippet/">Snippet</a> and <a title="Syntax Highlighting in JavScript" href="http://shjs.sourceforge.net/">SHJS</a> scripts.
+        <small>
+            syntaxhighlight.in is licensed under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT license</a> © 2012 - Thierry Koblentz - All rights reserved
+        </small>
+    </div>
+</div>
+
+<div id="ie"><p>This tool is for web developers, hence I think I can "safely" ignore IE. After all, which developer relies only on IE? ;)</p></div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28374417-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script>
+/*
+==========================
+ INLINE SCRIPT GOES HERE
+ /inline-js-and-css/scripts.min.js
+==========================
+*/
+/*
+ * Snippet :: jQuery Syntax Highlighter v2.0.0
+ * http://steamdev.com/snippet
+ *
+ * Copyright 2011, SteamDev
+ * Released under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * Date: Wed Jan 19, 2011
+ */
+
+/*!
+ * http://highlight.in (@thierrykoblentz)
+ * Edited: Sunday 1st January, 2012
+ * removed clipboard option and other stuff
+ */
+(function($) {
+
+	//enables console.log() in all browsers for error messages
+	window.log=function(){log.history=log.history||[];log.history.push(arguments);if(this.console){console.log(Array.prototype.slice.call(arguments))}};
+
+	$.fn.snippet = function(language,settings) {
+
+		if(typeof language == "object"){settings = language;}
+		if(typeof language == "string"){language = language.toLowerCase();}
+
+		var defaults = {
+			style:"random",
+			showNum:true,
+			transparent:false,
+			collapse:false,
+			menu:true,
+			showMsg:"Expand Code",
+			hideMsg:"Collapse Code",
+			// TJK clipboard:"",
+			startCollapsed:true,
+			startText:false,
+			box:"",
+			boxColor:"",
+			boxFill:""
+		};
+
+		// array containing all style names
+		var styleArr = ["acid","berries-dark","berries-light","bipolar","blacknblue","bright","contrast","darkblue","darkness","desert","dull","easter","emacs","golden","greenlcd","ide-anjuta","ide-codewarrior","ide-devcpp","ide-eclipse","ide-kdev","ide-msvcpp","kwrite","matlab","navy","nedit","neon","night","pablo","peachpuff","print","rand01","the","typical","vampire","vim","vim-dark","whatis","whitengrey","zellner"];
+
+		if(settings){$.extend(defaults,settings)}
+
+		return this.each(function() {
+
+			// variable containing the style to be used
+			var useStyle = defaults.style.toLowerCase();
+
+			// variable containing the selected node
+			var o = $(this);
+
+			// the name of the selected node
+			var node = this.nodeName.toLowerCase();
+
+			// if the node is indeed a <pre> element...
+			if(node == "pre"){
+
+				// saves the original html as a data on the node
+				if(o.data('orgHtml')==undefined || o.data('orgHtml')==null){
+					var orgHtml = o.html();
+					o.data('orgHtml',orgHtml);
+				}
+
+				// if node IS NOT an existing Snippet...
+
+				if(!o.parent().hasClass("snippet-wrap")){
+
+					o.addClass("sh_"+language).addClass("snippet-formatted").wrap("<div class='snippet-container'><div class='sh_"+useStyle+" snippet-wrap'></div></div>");
+					o.removeAttr('style');
+					sh_highlightDocument();
+
+					// build an ordered list if showNum is true
+					if(defaults.showNum){
+						var newhtml = o.html();
+						newhtml=newhtml.replace(/\n/g, "</li><li>");
+						newhtml="<ol class='snippet-num'><li>"+newhtml+"</li></ol>";
+						while(newhtml.indexOf("<li></li></ol>") != -1){
+							newhtml=newhtml.replace("<li></li></ol>","</ol>");
+						}
+					}
+					// build an unordered list if showNum is false
+					else {
+						var newhtml = o.html();
+						newhtml=newhtml.replace(/\n/g, "</li><li>");
+						newhtml="<ul class='snippet-no-num'><li>"+newhtml+"</li></ul>";
+						while(newhtml.indexOf("<li></li></ul>") != -1){
+							newhtml=newhtml.replace("<li></li></ul>","</ul>");
+						}
+					}
+
+					// normalizes tab space by replacing them with 4 non-breaking spaces
+					newhtml=newhtml.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;");
+
+
+					// insert highlighted code into <pre> element
+					o.html(newhtml);
+
+					// builds text-only view and menu (WITHOUT hover effect)
+                    // TJK kept only the text link
+                    // to keep the link accessible (off-screen/on-screen) via :focus and :hover
+                    // tabindex facilitates text selection via keyboard
+					var txtOnly = "<pre class='snippet-textonly sh_sourceCode' style='display:none;' tabindex='0' contenteditable>"+o.data('orgHtml')+"</pre>";
+					var controls = "<div class='snippet-menu sh_sourceCode'>"
+								  // TJK +"<a class='snippet-copy' href='#'>copy</a>"
+								  +"<a class='snippet-window' href='#'>pop-up</a>"
+                                  +"<a class='snippet-text' href='#'>text</a>"
+                                  +"</div>";
+
+					o.parent().append(txtOnly);
+					o.parent().prepend(controls);
+
+					// click event for text-only view
+					o.parent().find("a.snippet-text").click(function(){
+						var org = $(this).parents('.snippet-wrap').find('.snippet-formatted');
+						var txt = $(this).parents('.snippet-wrap').find('.snippet-textonly');
+						org.toggle();
+						txt.toggle();
+
+						if(txt.is(':visible')){
+							$(this).html("html");
+						} else {
+							$(this).html("text");
+						}
+                        // TJK removed so the user stays on the 'toggle' link
+						// $(this).blur();
+						return false;
+					});
+
+					// click event for popup view
+					o.parent().find("a.snippet-window").click(function(){
+						var txt = $(this).parents('.snippet-wrap').find('.snippet-textonly').html();
+						snippetPopup(txt);
+						$(this).blur();
+						return false;
+					});
+
+					// collapse functionality
+					if(defaults.collapse){
+						var styleClass = o.parent().attr('class');
+                        // inline events for show and collapse code snippet
+                        // TJK adding onclick event to collapse and expand
+						var collapseShow = '<div class="snippet-reveal '+styleClass+'"><pre class="sh_sourceCode"><a href="#" class="snippet-expand snippet-toggle">'+defaults.showMsg+'</a></pre></div>';
+						var collapseHide = '<div class="sh_sourceCode snippet-hide"><pre><a href="#" class="snippet-revealed snippet-close snippet-toggle">'+defaults.hideMsg+'</a></pre></div>';
+
+						o.parents('.snippet-container').append(collapseShow);
+						o.parent().append(collapseHide);
+
+						var root = o.parents('.snippet-container');
+						if(defaults.startCollapsed){
+							root.find('.snippet-reveal').show();
+							root.find('.snippet-wrap').eq(0).hide();
+						} else {
+							root.find('.snippet-reveal').hide();
+							root.find('.snippet-wrap').eq(0).show();
+						}
+
+						root.find('a.snippet-toggle').click(function(){
+							root.find('.snippet-wrap').toggle();
+							return false;
+						});
+
+					}
+
+					// makes snippet background transparent
+					if(defaults.transparent){
+						var styleObj = {"background-color":"transparent","box-shadow":"none","-moz-box-shadow":"none","-webkit-box-shadow":"none"}
+						o.css(styleObj);
+						o.next(".snippet-textonly").css(styleObj);
+						o.parents('.snippet-container').find('.snippet-reveal pre').css(styleObj);
+					}
+
+					// boxes in specified lines of code
+					if(defaults.box!=""){
+						var spacer = "<span class='box-sp'>&nbsp;</span>";
+						var boxNums = defaults.box.split(',');
+						for(var i=0;i<boxNums.length;i++){
+							var boxNum = boxNums[i];
+								if(boxNum.indexOf('-')==-1){
+									boxNum = parseFloat(boxNum)-1;
+									o.find("li").eq(boxNum).addClass('box').prepend(spacer);
+								} else {
+									var numStart = parseFloat(boxNum.split('-')[0])-1;
+									var numEnd = parseFloat(boxNum.split('-')[1])-1;
+									if(numStart<numEnd){
+										o.find("li").eq(numStart).addClass('box box-top').prepend(spacer);
+										o.find("li").eq(numEnd).addClass('box box-bot').prepend(spacer);
+										for(var x=numStart+1; x<numEnd; x++){
+											o.find("li").eq(x).addClass('box box-mid').prepend(spacer);
+										}
+									} else if (numStart==numEnd){
+										o.find("li").eq(numStart).addClass('box').prepend(spacer);
+									}
+								}
+
+						}
+
+						// sets the color of the box
+						if(defaults.boxColor!=""){
+							o.find("li.box").css('border-color',defaults.boxColor);
+						}
+
+						// sets the fill (background color) of the box
+						if(defaults.boxFill!=""){
+							o.find("li.box, li.box-top, li.box-mid, li.box-bot").addClass('box-bg').css('background-color',defaults.boxFill);
+						}
+
+						if($.browser.webkit){
+							o.find(".snippet-num li.box").css('margin-left','-3.3em');
+							o.find(".snippet-num li .box-sp").css('width','21px');
+						}
+
+					}
+
+					// adds a css class to all links in the snippet so they are themed properly
+					o.parents('.snippet-container').find("a").addClass("sh_url");
+
+				}
+
+            }
+
+		});
+
+	}
+
+})(jQuery);
+
+
+// snippet new window popup function
+function snippetPopup(content) {
+	 top.consoleRef=window.open('','myconsole',
+	  'width=600,height=300'
+	   +',left=50,top=50'
+	   +',menubar=0'
+	   +',toolbar=0'
+	   +',location=0'
+	   +',status=0'
+	   +',scrollbars=1'
+	   +',resizable=1');
+	 top.consoleRef.document.writeln(
+	  '<html><head><title>Snippet :: Code View :: '+location.href+'</title></head>'
+	   +'<body bgcolor="white" onLoad="self.focus()">'
+	   +'<pre>'+content+'</pre>'
+	   +'</body></html>'
+	 );
+	 top.consoleRef.document.close();
+}
+
+/* SHJS */
+/* Copyright (C) 2007, 2008 gnombat@users.sourceforge.net */
+/* License: http://shjs.sourceforge.net/doc/gplv3.html */
+
+if(!this.sh_languages){this.sh_languages={}}var sh_requests={};function sh_isEmailAddress(a){if(/^mailto:/.test(a)){return false}return a.indexOf("@")!==-1}function sh_setHref(b,c,d){var a=d.substring(b[c-2].pos,b[c-1].pos);if(a.length>=2&&a.charAt(0)==="<"&&a.charAt(a.length-1)===">"){a=a.substr(1,a.length-2)}if(sh_isEmailAddress(a)){a="mailto:"+a}b[c-2].node.href=a}function sh_konquerorExec(b){var a=[""];a.index=b.length;a.input=b;return a}function sh_highlightString(B,o){if(/Konqueror/.test(navigator.userAgent)){if(!o.konquered){for(var F=0;F<o.length;F++){for(var H=0;H<o[F].length;H++){var G=o[F][H][0];if(G.source==="$"){G.exec=sh_konquerorExec}}}o.konquered=true}}var N=document.createElement("a");var q=document.createElement("span");var A=[];var j=0;var n=[];var C=0;var k=null;var x=function(i,a){var p=i.length;if(p===0){return}if(!a){var Q=n.length;if(Q!==0){var r=n[Q-1];if(!r[3]){a=r[1]}}}if(k!==a){if(k){A[j++]={pos:C};if(k==="sh_url"){sh_setHref(A,j,B)}}if(a){var P;if(a==="sh_url"){P=N.cloneNode(false)}else{P=q.cloneNode(false)}P.className=a;A[j++]={node:P,pos:C}}}C+=p;k=a};var t=/\r\n|\r|\n/g;t.lastIndex=0;var d=B.length;while(C<d){var v=C;var l;var w;var h=t.exec(B);if(h===null){l=d;w=d}else{l=h.index;w=t.lastIndex}var g=B.substring(v,l);var M=[];for(;;){var I=C-v;var D;var y=n.length;if(y===0){D=0}else{D=n[y-1][2]}var O=o[D];var z=O.length;var m=M[D];if(!m){m=M[D]=[]}var E=null;var u=-1;for(var K=0;K<z;K++){var f;if(K<m.length&&(m[K]===null||I<=m[K].index)){f=m[K]}else{var c=O[K][0];c.lastIndex=I;f=c.exec(g);m[K]=f}if(f!==null&&(E===null||f.index<E.index)){E=f;u=K;if(f.index===I){break}}}if(E===null){x(g.substring(I),null);break}else{if(E.index>I){x(g.substring(I,E.index),null)}var e=O[u];var J=e[1];var b;if(J instanceof Array){for(var L=0;L<J.length;L++){b=E[L+1];x(b,J[L])}}else{b=E[0];x(b,J)}switch(e[2]){case -1:break;case -2:n.pop();break;case -3:n.length=0;break;default:n.push(e);break}}}if(k){A[j++]={pos:C};if(k==="sh_url"){sh_setHref(A,j,B)}k=null}C=w}return A}function sh_getClasses(d){var a=[];var b=d.className;if(b&&b.length>0){var e=b.split(" ");for(var c=0;c<e.length;c++){if(e[c].length>0){a.push(e[c])}}}return a}function sh_addClass(c,a){var d=sh_getClasses(c);for(var b=0;b<d.length;b++){if(a.toLowerCase()===d[b].toLowerCase()){return}}d.push(a);c.className=d.join(" ")}function sh_extractTagsFromNodeList(c,a){var f=c.length;for(var d=0;d<f;d++){var e=c.item(d);switch(e.nodeType){case 1:if(e.nodeName.toLowerCase()==="br"){var b;if(/MSIE/.test(navigator.userAgent)){b="\r"}else{b="\n"}a.text.push(b);a.pos++}else{a.tags.push({node:e.cloneNode(false),pos:a.pos});sh_extractTagsFromNodeList(e.childNodes,a);a.tags.push({pos:a.pos})}break;case 3:case 4:a.text.push(e.data);a.pos+=e.length;break}}}function sh_extractTags(c,b){var a={};a.text=[];a.tags=b;a.pos=0;sh_extractTagsFromNodeList(c.childNodes,a);return a.text.join("")}function sh_mergeTags(d,f){var a=d.length;if(a===0){return f}var c=f.length;if(c===0){return d}var i=[];var e=0;var b=0;while(e<a&&b<c){var h=d[e];var g=f[b];if(h.pos<=g.pos){i.push(h);e++}else{i.push(g);if(f[b+1].pos<=h.pos){b++;i.push(f[b]);b++}else{i.push({pos:h.pos});f[b]={node:g.node.cloneNode(false),pos:h.pos}}}}while(e<a){i.push(d[e]);e++}while(b<c){i.push(f[b]);b++}return i}function sh_insertTags(k,h){var g=document;var l=document.createDocumentFragment();var e=0;var d=k.length;var b=0;var j=h.length;var c=l;while(b<j||e<d){var i;var a;if(e<d){i=k[e];a=i.pos}else{a=j}if(a<=b){if(i.node){var f=i.node;c.appendChild(f);c=f}else{c=c.parentNode}e++}else{c.appendChild(g.createTextNode(h.substring(b,a)));b=a}}return l}function sh_highlightElement(d,g){sh_addClass(d,"sh_sourceCode");var c=[];var e=sh_extractTags(d,c);var f=sh_highlightString(e,g);var b=sh_mergeTags(c,f);var a=sh_insertTags(b,e);while(d.hasChildNodes()){d.removeChild(d.firstChild)}d.appendChild(a)}function sh_getXMLHttpRequest(){if(window.ActiveXObject){return new ActiveXObject("Msxml2.XMLHTTP")}else{if(window.XMLHttpRequest){return new XMLHttpRequest()}}throw"No XMLHttpRequest implementation available"}function sh_load(language,element,prefix,suffix){if(language in sh_requests){sh_requests[language].push(element);return}sh_requests[language]=[element];var request=sh_getXMLHttpRequest();var url=prefix+"sh_"+language+suffix;request.open("GET",url,true);request.onreadystatechange=function(){if(request.readyState===4){try{if(!request.status||request.status===200){eval(request.responseText);var elements=sh_requests[language];for(var i=0;i<elements.length;i++){sh_highlightElement(elements[i],sh_languages[language])}}else{throw"HTTP error: status "+request.status}}finally{request=null}}};request.send(null)}
+
+
+
+
+function sh_highlightDocument(prefix, suffix) {
+	var nodeList = document.getElementsByTagName('pre');
+	for (var i = 0; i < nodeList.length; i++) {
+		var element = nodeList.item(i);
+		var htmlClasses = element.className.toLowerCase();
+		var htmlClass = htmlClasses.replace(/sh_sourcecode/g,'');
+		if(htmlClass.indexOf("sh_")!=-1){htmlClass=htmlClass.match(/(\bsh_)\w+\b/g)[0];}
+		if (htmlClasses.indexOf('sh_sourcecode') != -1) {continue;}
+		if (htmlClass.substr(0, 3) === 'sh_') {
+			var language = htmlClass.substring(3);
+			if (language in sh_languages) {
+				sh_highlightElement(element, sh_languages[language]);
+			} else if (typeof(prefix) === 'string' && typeof(suffix) === 'string') {
+				sh_load(language, element, prefix, suffix);
+			} else {
+				console.log('Found <pre> element with class="' + htmlClass + '", but no such language exists');
+				continue;
+			}
+			break;
+		}
+	}
+}
+
+
+
+/* C language (http://shjs.sourceforge.net/lang/sh_c.min.js) */
+if(!this.sh_languages){this.sh_languages={}}sh_languages.c=[[[/\/\/\//g,"sh_comment",1],[/\/\//g,"sh_comment",7],[/\/\*\*/g,"sh_comment",8],[/\/\*/g,"sh_comment",9],[/(\bstruct)([ \t]+)([A-Za-z0-9_]+)/g,["sh_keyword","sh_normal","sh_classname"],-1],[/^[ \t]*#(?:[ \t]*include)/g,"sh_preproc",10,1],[/^[ \t]*#(?:[ \t]*[A-Za-z0-9_]*)/g,"sh_preproc",-1],[/\b[+-]?(?:(?:0x[A-Fa-f0-9]+)|(?:(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?))u?(?:(?:int(?:8|16|32|64))|L)?\b/g,"sh_number",-1],[/"/g,"sh_string",13],[/'/g,"sh_string",14],[/\b(?:__asm|__cdecl|__declspec|__export|__far16|__fastcall|__fortran|__import|__pascal|__rtti|__stdcall|_asm|_cdecl|__except|_export|_far16|_fastcall|__finally|_fortran|_import|_pascal|_stdcall|__thread|__try|asm|auto|break|case|catch|cdecl|const|continue|default|do|else|enum|extern|for|goto|if|pascal|register|return|sizeof|static|struct|switch|typedef|union|volatile|while)\b/g,"sh_keyword",-1],[/\b(?:bool|char|double|float|int|long|short|signed|unsigned|void|wchar_t)\b/g,"sh_type",-1],[/~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\|/g,"sh_symbol",-1],[/\{|\}/g,"sh_cbracket",-1],[/(?:[A-Za-z]|_)[A-Za-z0-9_]*(?=[ \t]*\()/g,"sh_function",-1],[/([A-Za-z](?:[^`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\s]|[_])*)((?:<.*>)?)(\s+(?=[*&]*[A-Za-z][^`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\s]*\s*[`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\[\]]+))/g,["sh_usertype","sh_usertype","sh_normal"],-1]],[[/$/g,null,-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",2,1],[/<!DOCTYPE/g,"sh_preproc",4,1],[/<!--/g,"sh_comment",5],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",6,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",6,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\?>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/-->/g,"sh_comment",-2],[/<!--/g,"sh_comment",5]],[[/(?:\/)?>/g,"sh_keyword",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/$/g,null,-2]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",2,1],[/<!DOCTYPE/g,"sh_preproc",4,1],[/<!--/g,"sh_comment",5],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",6,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",6,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/$/g,null,-2],[/</g,"sh_string",11],[/"/g,"sh_string",12],[/\/\/\//g,"sh_comment",1],[/\/\//g,"sh_comment",7],[/\/\*\*/g,"sh_comment",8],[/\/\*/g,"sh_comment",9]],[[/$/g,null,-2],[/>/g,"sh_string",-2]],[[/$/g,null,-2],[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/"/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]],[[/'/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]]];
+
+/* C++ (cpp) language (http://shjs.sourceforge.net/lang/sh_cpp.min.js) */
+if(!this.sh_languages){this.sh_languages={}}sh_languages.cpp=[[[/(\b(?:class|struct|typename))([ \t]+)([A-Za-z0-9_]+)/g,["sh_keyword","sh_normal","sh_classname"],-1],[/\b(?:class|const_cast|delete|dynamic_cast|explicit|false|friend|inline|mutable|namespace|new|operator|private|protected|public|reinterpret_cast|static_cast|template|this|throw|true|try|typeid|typename|using|virtual)\b/g,"sh_keyword",-1],[/\/\/\//g,"sh_comment",1],[/\/\//g,"sh_comment",7],[/\/\*\*/g,"sh_comment",8],[/\/\*/g,"sh_comment",9],[/(\bstruct)([ \t]+)([A-Za-z0-9_]+)/g,["sh_keyword","sh_normal","sh_classname"],-1],[/^[ \t]*#(?:[ \t]*include)/g,"sh_preproc",10,1],[/^[ \t]*#(?:[ \t]*[A-Za-z0-9_]*)/g,"sh_preproc",-1],[/\b[+-]?(?:(?:0x[A-Fa-f0-9]+)|(?:(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?))u?(?:(?:int(?:8|16|32|64))|L)?\b/g,"sh_number",-1],[/"/g,"sh_string",13],[/'/g,"sh_string",14],[/\b(?:__asm|__cdecl|__declspec|__export|__far16|__fastcall|__fortran|__import|__pascal|__rtti|__stdcall|_asm|_cdecl|__except|_export|_far16|_fastcall|__finally|_fortran|_import|_pascal|_stdcall|__thread|__try|asm|auto|break|case|catch|cdecl|const|continue|default|do|else|enum|extern|for|goto|if|pascal|register|return|sizeof|static|struct|switch|typedef|union|volatile|while)\b/g,"sh_keyword",-1],[/\b(?:bool|char|double|float|int|long|short|signed|unsigned|void|wchar_t)\b/g,"sh_type",-1],[/~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\|/g,"sh_symbol",-1],[/\{|\}/g,"sh_cbracket",-1],[/(?:[A-Za-z]|_)[A-Za-z0-9_]*(?=[ \t]*\()/g,"sh_function",-1],[/([A-Za-z](?:[^`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\s]|[_])*)((?:<.*>)?)(\s+(?=[*&]*[A-Za-z][^`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\s]*\s*[`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\[\]]+))/g,["sh_usertype","sh_usertype","sh_normal"],-1]],[[/$/g,null,-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",2,1],[/<!DOCTYPE/g,"sh_preproc",4,1],[/<!--/g,"sh_comment",5],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",6,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",6,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\?>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/-->/g,"sh_comment",-2],[/<!--/g,"sh_comment",5]],[[/(?:\/)?>/g,"sh_keyword",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/$/g,null,-2]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",2,1],[/<!DOCTYPE/g,"sh_preproc",4,1],[/<!--/g,"sh_comment",5],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",6,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",6,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/$/g,null,-2],[/</g,"sh_string",11],[/"/g,"sh_string",12],[/\/\/\//g,"sh_comment",1],[/\/\//g,"sh_comment",7],[/\/\*\*/g,"sh_comment",8],[/\/\*/g,"sh_comment",9]],[[/$/g,null,-2],[/>/g,"sh_string",-2]],[[/$/g,null,-2],[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/"/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]],[[/'/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]]];
+
+/* C Sharp language (http://shjs.sourceforge.net/lang/sh_csharp.min.js) */
+if(!this.sh_languages){this.sh_languages={}}sh_languages.csharp=[[[/\b(?:using)\b/g,"sh_preproc",-1],[/\b[+-]?(?:(?:0x[A-Fa-f0-9]+)|(?:(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?))(?:[FfDdMmUulL]+)?\b/g,"sh_number",-1],[/(\b(?:class|struct|typename))([ \t]+)([A-Za-z0-9_]+)/g,["sh_keyword","sh_normal","sh_classname"],-1],[/\b(?:abstract|event|new|struct|as|explicit|null|switch|base|extern|this|false|operator|throw|break|finally|out|true|fixed|override|try|case|params|typeof|catch|for|private|foreach|protected|checked|goto|public|unchecked|class|if|readonly|unsafe|const|implicit|ref|continue|in|return|virtual|default|interface|sealed|volatile|delegate|internal|do|is|sizeof|while|lock|stackalloc|else|static|enum|namespace|get|partial|set|value|where|yield)\b/g,"sh_keyword",-1],[/\/\/\//g,"sh_comment",1],[/\/\//g,"sh_comment",7],[/\/\*\*/g,"sh_comment",8],[/\/\*/g,"sh_comment",9],[/(\bstruct)([ \t]+)([A-Za-z0-9_]+)/g,["sh_keyword","sh_normal","sh_classname"],-1],[/^[ \t]*#(?:[ \t]*include)/g,"sh_preproc",10,1],[/^[ \t]*#(?:[ \t]*[A-Za-z0-9_]*)/g,"sh_preproc",-1],[/\b[+-]?(?:(?:0x[A-Fa-f0-9]+)|(?:(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?))u?(?:(?:int(?:8|16|32|64))|L)?\b/g,"sh_number",-1],[/"/g,"sh_string",13],[/'/g,"sh_string",14],[/\b(?:bool|byte|sbyte|char|decimal|double|float|int|uint|long|ulong|object|short|ushort|string|void)\b/g,"sh_type",-1],[/~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\|/g,"sh_symbol",-1],[/\{|\}/g,"sh_cbracket",-1],[/(?:[A-Za-z]|_)[A-Za-z0-9_]*(?=[ \t]*\()/g,"sh_function",-1],[/([A-Za-z](?:[^`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\s]|[_])*)((?:<.*>)?)(\s+(?=[*&]*[A-Za-z][^`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\s]*\s*[`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\[\]]+))/g,["sh_usertype","sh_usertype","sh_normal"],-1]],[[/$/g,null,-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",2,1],[/<!DOCTYPE/g,"sh_preproc",4,1],[/<!--/g,"sh_comment",5],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",6,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",6,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\?>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/-->/g,"sh_comment",-2],[/<!--/g,"sh_comment",5]],[[/(?:\/)?>/g,"sh_keyword",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/$/g,null,-2]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",2,1],[/<!DOCTYPE/g,"sh_preproc",4,1],[/<!--/g,"sh_comment",5],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",6,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",6,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/$/g,null,-2],[/</g,"sh_string",11],[/"/g,"sh_string",12],[/\/\/\//g,"sh_comment",1],[/\/\//g,"sh_comment",7],[/\/\*\*/g,"sh_comment",8],[/\/\*/g,"sh_comment",9]],[[/$/g,null,-2],[/>/g,"sh_string",-2]],[[/$/g,null,-2],[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/"/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]],[[/'/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]]];
+
+/* CSS language (http://shjs.sourceforge.net/lang/sh_css.min.js) */
+if(!this.sh_languages){this.sh_languages={}}sh_languages.css=[[[/\/\/\//g,"sh_comment",1],[/\/\//g,"sh_comment",7],[/\/\*\*/g,"sh_comment",8],[/\/\*/g,"sh_comment",9],[/(?:\.|#)[A-Za-z0-9_]+/g,"sh_selector",-1],[/\{/g,"sh_cbracket",10,1],[/~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\|/g,"sh_symbol",-1]],[[/$/g,null,-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",2,1],[/<!DOCTYPE/g,"sh_preproc",4,1],[/<!--/g,"sh_comment",5],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",6,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",6,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\?>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/-->/g,"sh_comment",-2],[/<!--/g,"sh_comment",5]],[[/(?:\/)?>/g,"sh_keyword",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/$/g,null,-2]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",2,1],[/<!DOCTYPE/g,"sh_preproc",4,1],[/<!--/g,"sh_comment",5],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",6,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",6,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\}/g,"sh_cbracket",-2],[/\/\/\//g,"sh_comment",1],[/\/\//g,"sh_comment",7],[/\/\*\*/g,"sh_comment",8],[/\/\*/g,"sh_comment",9],[/[A-Za-z0-9_-]+[ \t]*:/g,"sh_property",-1],[/[.%A-Za-z0-9_-]+/g,"sh_value",-1],[/#(?:[A-Za-z0-9_]+)/g,"sh_string",-1]]];
+
+/* Flex language (http://shjs.sourceforge.net/lang/sh_flex.min.js) */
+if(!this.sh_languages){this.sh_languages={}}sh_languages.flex=[[[/^%\{/g,"sh_preproc",1,1],[/^%[sx]/g,"sh_preproc",16,1],[/^%option/g,"sh_preproc",17,1],[/^%(?:array|pointer|[aceknopr])/g,"sh_preproc",-1],[/[A-Za-z_][A-Za-z0-9_-]*/g,"sh_preproc",19,1],[/^%%/g,"sh_preproc",20,1]],[[/^%\}/g,"sh_preproc",-2],[/(\b(?:class|struct|typename))([ \t]+)([A-Za-z0-9_]+)/g,["sh_keyword","sh_normal","sh_classname"],-1],[/\b(?:class|const_cast|delete|dynamic_cast|explicit|false|friend|inline|mutable|namespace|new|operator|private|protected|public|reinterpret_cast|static_cast|template|this|throw|true|try|typeid|typename|using|virtual)\b/g,"sh_keyword",-1],[/\/\/\//g,"sh_comment",2],[/\/\//g,"sh_comment",8],[/\/\*\*/g,"sh_comment",9],[/\/\*/g,"sh_comment",10],[/(\bstruct)([ \t]+)([A-Za-z0-9_]+)/g,["sh_keyword","sh_normal","sh_classname"],-1],[/^[ \t]*#(?:[ \t]*include)/g,"sh_preproc",11,1],[/^[ \t]*#(?:[ \t]*[A-Za-z0-9_]*)/g,"sh_preproc",-1],[/\b[+-]?(?:(?:0x[A-Fa-f0-9]+)|(?:(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?))u?(?:(?:int(?:8|16|32|64))|L)?\b/g,"sh_number",-1],[/"/g,"sh_string",14],[/'/g,"sh_string",15],[/\b(?:__asm|__cdecl|__declspec|__export|__far16|__fastcall|__fortran|__import|__pascal|__rtti|__stdcall|_asm|_cdecl|__except|_export|_far16|_fastcall|__finally|_fortran|_import|_pascal|_stdcall|__thread|__try|asm|auto|break|case|catch|cdecl|const|continue|default|do|else|enum|extern|for|goto|if|pascal|register|return|sizeof|static|struct|switch|typedef|union|volatile|while)\b/g,"sh_keyword",-1],[/\b(?:bool|char|double|float|int|long|short|signed|unsigned|void|wchar_t)\b/g,"sh_type",-1],[/~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\|/g,"sh_symbol",-1],[/\{|\}/g,"sh_cbracket",-1],[/(?:[A-Za-z]|_)[A-Za-z0-9_]*(?=[ \t]*\()/g,"sh_function",-1],[/([A-Za-z](?:[^`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\s]|[_])*)((?:<.*>)?)(\s+(?=[*&]*[A-Za-z][^`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\s]*\s*[`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\[\]]+))/g,["sh_usertype","sh_usertype","sh_normal"],-1]],[[/$/g,null,-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",3,1],[/<!DOCTYPE/g,"sh_preproc",5,1],[/<!--/g,"sh_comment",6],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",7,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",7,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\?>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",4]],[[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",4]],[[/-->/g,"sh_comment",-2],[/<!--/g,"sh_comment",6]],[[/(?:\/)?>/g,"sh_keyword",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",4]],[[/$/g,null,-2]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",3,1],[/<!DOCTYPE/g,"sh_preproc",5,1],[/<!--/g,"sh_comment",6],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",7,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",7,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/$/g,null,-2],[/</g,"sh_string",12],[/"/g,"sh_string",13],[/\/\/\//g,"sh_comment",2],[/\/\//g,"sh_comment",8],[/\/\*\*/g,"sh_comment",9],[/\/\*/g,"sh_comment",10]],[[/$/g,null,-2],[/>/g,"sh_string",-2]],[[/$/g,null,-2],[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/"/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]],[[/'/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]],[[/$/g,null,-2],[/[A-Za-z_][A-Za-z0-9_-]*/g,"sh_function",-1]],[[/$/g,null,-2],[/[A-Za-z_][A-Za-z0-9_-]*/g,"sh_keyword",-1],[/"/g,"sh_string",18],[/=/g,"sh_symbol",-1]],[[/$/g,null,-2],[/"/g,"sh_string",-2]],[[/$/g,null,-2],[/\{[A-Za-z_][A-Za-z0-9_-]*\}/g,"sh_type",-1],[/"/g,"sh_string",13],[/~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\|/g,"sh_symbol",-1]],[[/^%%/g,"sh_preproc",21,1],[/<[A-Za-z_][A-Za-z0-9_-]*>/g,"sh_function",-1],[/"/g,"sh_string",13],[/\\./g,"sh_preproc",-1],[/\{[A-Za-z_][A-Za-z0-9_-]*\}/g,"sh_type",-1],[/\/\*/g,"sh_comment",22],[/\{/g,"sh_cbracket",23,1],[/~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\|/g,"sh_symbol",-1]],[[/(\b(?:class|struct|typename))([ \t]+)([A-Za-z0-9_]+)/g,["sh_keyword","sh_normal","sh_classname"],-1],[/\b(?:class|const_cast|delete|dynamic_cast|explicit|false|friend|inline|mutable|namespace|new|operator|private|protected|public|reinterpret_cast|static_cast|template|this|throw|true|try|typeid|typename|using|virtual)\b/g,"sh_keyword",-1],[/\/\/\//g,"sh_comment",2],[/\/\//g,"sh_comment",8],[/\/\*\*/g,"sh_comment",9],[/\/\*/g,"sh_comment",10],[/(\bstruct)([ \t]+)([A-Za-z0-9_]+)/g,["sh_keyword","sh_normal","sh_classname"],-1],[/^[ \t]*#(?:[ \t]*include)/g,"sh_preproc",11,1],[/^[ \t]*#(?:[ \t]*[A-Za-z0-9_]*)/g,"sh_preproc",-1],[/\b[+-]?(?:(?:0x[A-Fa-f0-9]+)|(?:(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?))u?(?:(?:int(?:8|16|32|64))|L)?\b/g,"sh_number",-1],[/"/g,"sh_string",14],[/'/g,"sh_string",15],[/\b(?:__asm|__cdecl|__declspec|__export|__far16|__fastcall|__fortran|__import|__pascal|__rtti|__stdcall|_asm|_cdecl|__except|_export|_far16|_fastcall|__finally|_fortran|_import|_pascal|_stdcall|__thread|__try|asm|auto|break|case|catch|cdecl|const|continue|default|do|else|enum|extern|for|goto|if|pascal|register|return|sizeof|static|struct|switch|typedef|union|volatile|while)\b/g,"sh_keyword",-1],[/\b(?:bool|char|double|float|int|long|short|signed|unsigned|void|wchar_t)\b/g,"sh_type",-1],[/~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\|/g,"sh_symbol",-1],[/\{|\}/g,"sh_cbracket",-1],[/(?:[A-Za-z]|_)[A-Za-z0-9_]*(?=[ \t]*\()/g,"sh_function",-1],[/([A-Za-z](?:[^`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\s]|[_])*)((?:<.*>)?)(\s+(?=[*&]*[A-Za-z][^`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\s]*\s*[`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\[\]]+))/g,["sh_usertype","sh_usertype","sh_normal"],-1]],[[/\*\//g,"sh_comment",-2],[/\/\*/g,"sh_comment",22]],[[/\}/g,"sh_cbracket",-2],[/\{/g,"sh_cbracket",23,1],[/\$./g,"sh_variable",-1],[/(\b(?:class|struct|typename))([ \t]+)([A-Za-z0-9_]+)/g,["sh_keyword","sh_normal","sh_classname"],-1],[/\b(?:class|const_cast|delete|dynamic_cast|explicit|false|friend|inline|mutable|namespace|new|operator|private|protected|public|reinterpret_cast|static_cast|template|this|throw|true|try|typeid|typename|using|virtual)\b/g,"sh_keyword",-1],[/\/\/\//g,"sh_comment",2],[/\/\//g,"sh_comment",8],[/\/\*\*/g,"sh_comment",9],[/\/\*/g,"sh_comment",10],[/(\bstruct)([ \t]+)([A-Za-z0-9_]+)/g,["sh_keyword","sh_normal","sh_classname"],-1],[/^[ \t]*#(?:[ \t]*include)/g,"sh_preproc",11,1],[/^[ \t]*#(?:[ \t]*[A-Za-z0-9_]*)/g,"sh_preproc",-1],[/\b[+-]?(?:(?:0x[A-Fa-f0-9]+)|(?:(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?))u?(?:(?:int(?:8|16|32|64))|L)?\b/g,"sh_number",-1],[/"/g,"sh_string",14],[/'/g,"sh_string",15],[/\b(?:__asm|__cdecl|__declspec|__export|__far16|__fastcall|__fortran|__import|__pascal|__rtti|__stdcall|_asm|_cdecl|__except|_export|_far16|_fastcall|__finally|_fortran|_import|_pascal|_stdcall|__thread|__try|asm|auto|break|case|catch|cdecl|const|continue|default|do|else|enum|extern|for|goto|if|pascal|register|return|sizeof|static|struct|switch|typedef|union|volatile|while)\b/g,"sh_keyword",-1],[/\b(?:bool|char|double|float|int|long|short|signed|unsigned|void|wchar_t)\b/g,"sh_type",-1],[/~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\|/g,"sh_symbol",-1],[/\{|\}/g,"sh_cbracket",-1],[/(?:[A-Za-z]|_)[A-Za-z0-9_]*(?=[ \t]*\()/g,"sh_function",-1],[/([A-Za-z](?:[^`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\s]|[_])*)((?:<.*>)?)(\s+(?=[*&]*[A-Za-z][^`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\s]*\s*[`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\[\]]+))/g,["sh_usertype","sh_usertype","sh_normal"],-1]]];
+
+/* HTML language (http://shjs.sourceforge.net/lang/sh_html.min.js) */
+if(!this.sh_languages){this.sh_languages={}}sh_languages.html=[[[/<\?xml/g,"sh_preproc",1,1],[/<!DOCTYPE/g,"sh_preproc",3,1],[/<!--/g,"sh_comment",4],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",5,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",5,1]],[[/\?>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",2]],[[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",2]],[[/-->/g,"sh_comment",-2],[/<!--/g,"sh_comment",4]],[[/(?:\/)?>/g,"sh_keyword",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",2]]];
+
+/* Java language (http://shjs.sourceforge.net/lang/sh_java.min.js) */
+if(!this.sh_languages){this.sh_languages={}}sh_languages.java=[[[/\b(?:import|package)\b/g,"sh_preproc",-1],[/\/\/\//g,"sh_comment",1],[/\/\//g,"sh_comment",7],[/\/\*\*/g,"sh_comment",8],[/\/\*/g,"sh_comment",9],[/\b[+-]?(?:(?:0x[A-Fa-f0-9]+)|(?:(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?))u?(?:(?:int(?:8|16|32|64))|L)?\b/g,"sh_number",-1],[/"/g,"sh_string",10],[/'/g,"sh_string",11],[/(\b(?:class|interface))([ \t]+)([$A-Za-z0-9_]+)/g,["sh_keyword","sh_normal","sh_classname"],-1],[/\b(?:abstract|assert|break|case|catch|class|const|continue|default|do|else|extends|false|final|finally|for|goto|if|implements|instanceof|interface|native|new|null|private|protected|public|return|static|strictfp|super|switch|synchronized|throw|throws|true|this|transient|try|volatile|while)\b/g,"sh_keyword",-1],[/\b(?:int|byte|boolean|char|long|float|double|short|void)\b/g,"sh_type",-1],[/~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\|/g,"sh_symbol",-1],[/\{|\}/g,"sh_cbracket",-1],[/(?:[A-Za-z]|_)[A-Za-z0-9_]*(?=[ \t]*\()/g,"sh_function",-1],[/([A-Za-z](?:[^`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\s]|[_])*)((?:<.*>)?)(\s+(?=[*&]*[A-Za-z][^`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\s]*\s*[`~!@#$%&*()_=+{}|;:",<.>\/?'\\[\]\^\-\[\]]+))/g,["sh_usertype","sh_usertype","sh_normal"],-1]],[[/$/g,null,-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",2,1],[/<!DOCTYPE/g,"sh_preproc",4,1],[/<!--/g,"sh_comment",5],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",6,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",6,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\?>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/-->/g,"sh_comment",-2],[/<!--/g,"sh_comment",5]],[[/(?:\/)?>/g,"sh_keyword",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/$/g,null,-2]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",2,1],[/<!DOCTYPE/g,"sh_preproc",4,1],[/<!--/g,"sh_comment",5],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",6,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",6,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/"/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]],[[/'/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]]];
+
+/* Javascript language (http://shjs.sourceforge.net/lang/sh_javascript.min.js) */
+if(!this.sh_languages){this.sh_languages={}}sh_languages.javascript=[[[/\/\/\//g,"sh_comment",1],[/\/\//g,"sh_comment",7],[/\/\*\*/g,"sh_comment",8],[/\/\*/g,"sh_comment",9],[/\b(?:abstract|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|false|final|finally|for|function|goto|if|implements|in|instanceof|interface|native|new|null|private|protected|prototype|public|return|static|super|switch|synchronized|throw|throws|this|transient|true|try|typeof|var|volatile|while|with)\b/g,"sh_keyword",-1],[/(\+\+|--|\)|\])(\s*)(\/=?(?![*\/]))/g,["sh_symbol","sh_normal","sh_symbol"],-1],[/(0x[A-Fa-f0-9]+|(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?)(\s*)(\/(?![*\/]))/g,["sh_number","sh_normal","sh_symbol"],-1],[/([A-Za-z$_][A-Za-z0-9$_]*\s*)(\/=?(?![*\/]))/g,["sh_normal","sh_symbol"],-1],[/\/(?:\\.|[^*\\\/])(?:\\.|[^\\\/])*\/[gim]*/g,"sh_regexp",-1],[/\b[+-]?(?:(?:0x[A-Fa-f0-9]+)|(?:(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?))u?(?:(?:int(?:8|16|32|64))|L)?\b/g,"sh_number",-1],[/"/g,"sh_string",10],[/'/g,"sh_string",11],[/~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\|/g,"sh_symbol",-1],[/\{|\}/g,"sh_cbracket",-1],[/\b(?:Math|Infinity|NaN|undefined|arguments)\b/g,"sh_predef_var",-1],[/\b(?:Array|Boolean|Date|Error|EvalError|Function|Number|Object|RangeError|ReferenceError|RegExp|String|SyntaxError|TypeError|URIError|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|eval|isFinite|isNaN|parseFloat|parseInt)\b/g,"sh_predef_func",-1],[/(?:[A-Za-z]|_)[A-Za-z0-9_]*(?=[ \t]*\()/g,"sh_function",-1]],[[/$/g,null,-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",2,1],[/<!DOCTYPE/g,"sh_preproc",4,1],[/<!--/g,"sh_comment",5],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",6,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",6,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\?>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/-->/g,"sh_comment",-2],[/<!--/g,"sh_comment",5]],[[/(?:\/)?>/g,"sh_keyword",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/$/g,null,-2]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",2,1],[/<!DOCTYPE/g,"sh_preproc",4,1],[/<!--/g,"sh_comment",5],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",6,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",6,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/"/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]],[[/'/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]]];
+
+/* Javascript DOM language (http://shjs.sourceforge.net/lang/sh_javascript_dom.min.js) */
+if(!this.sh_languages){this.sh_languages={}}sh_languages.javascript_dom=[[[/\/\/\//g,"sh_comment",1],[/\/\//g,"sh_comment",7],[/\/\*\*/g,"sh_comment",8],[/\/\*/g,"sh_comment",9],[/\b(?:abstract|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|false|final|finally|for|function|goto|if|implements|in|instanceof|interface|native|new|null|private|protected|prototype|public|return|static|super|switch|synchronized|throw|throws|this|transient|true|try|typeof|var|volatile|while|with)\b/g,"sh_keyword",-1],[/(\+\+|--|\)|\])(\s*)(\/=?(?![*\/]))/g,["sh_symbol","sh_normal","sh_symbol"],-1],[/(0x[A-Fa-f0-9]+|(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?)(\s*)(\/(?![*\/]))/g,["sh_number","sh_normal","sh_symbol"],-1],[/([A-Za-z$_][A-Za-z0-9$_]*\s*)(\/=?(?![*\/]))/g,["sh_normal","sh_symbol"],-1],[/\/(?:\\.|[^*\\\/])(?:\\.|[^\\\/])*\/[gim]*/g,"sh_regexp",-1],[/\b[+-]?(?:(?:0x[A-Fa-f0-9]+)|(?:(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?))u?(?:(?:int(?:8|16|32|64))|L)?\b/g,"sh_number",-1],[/"/g,"sh_string",10],[/'/g,"sh_string",11],[/~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\|/g,"sh_symbol",-1],[/\{|\}/g,"sh_cbracket",-1],[/\b(?:Math|Infinity|NaN|undefined|arguments)\b/g,"sh_predef_var",-1],[/\b(?:Array|Boolean|Date|Error|EvalError|Function|Number|Object|RangeError|ReferenceError|RegExp|String|SyntaxError|TypeError|URIError|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|eval|isFinite|isNaN|parseFloat|parseInt)\b/g,"sh_predef_func",-1],[/\b(?:applicationCache|closed|Components|content|controllers|crypto|defaultStatus|dialogArguments|directories|document|frameElement|frames|fullScreen|globalStorage|history|innerHeight|innerWidth|length|location|locationbar|menubar|name|navigator|opener|outerHeight|outerWidth|pageXOffset|pageYOffset|parent|personalbar|pkcs11|returnValue|screen|availTop|availLeft|availHeight|availWidth|colorDepth|height|left|pixelDepth|top|width|screenX|screenY|scrollbars|scrollMaxX|scrollMaxY|scrollX|scrollY|self|sessionStorage|sidebar|status|statusbar|toolbar|top|window)\b/g,"sh_predef_var",-1],[/\b(?:alert|addEventListener|atob|back|blur|btoa|captureEvents|clearInterval|clearTimeout|close|confirm|dump|escape|find|focus|forward|getAttention|getComputedStyle|getSelection|home|moveBy|moveTo|open|openDialog|postMessage|print|prompt|releaseEvents|removeEventListener|resizeBy|resizeTo|scroll|scrollBy|scrollByLines|scrollByPages|scrollTo|setInterval|setTimeout|showModalDialog|sizeToContent|stop|unescape|updateCommands|onabort|onbeforeunload|onblur|onchange|onclick|onclose|oncontextmenu|ondragdrop|onerror|onfocus|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onpaint|onreset|onresize|onscroll|onselect|onsubmit|onunload)\b/g,"sh_predef_func",-1],[/(?:[A-Za-z]|_)[A-Za-z0-9_]*(?=[ \t]*\()/g,"sh_function",-1]],[[/$/g,null,-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",2,1],[/<!DOCTYPE/g,"sh_preproc",4,1],[/<!--/g,"sh_comment",5],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",6,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",6,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\?>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/-->/g,"sh_comment",-2],[/<!--/g,"sh_comment",5]],[[/(?:\/)?>/g,"sh_keyword",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",3]],[[/$/g,null,-2]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",2,1],[/<!DOCTYPE/g,"sh_preproc",4,1],[/<!--/g,"sh_comment",5],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",6,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",6,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/"/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]],[[/'/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]]];
+
+/* perl language (http://shjs.sourceforge.net/lang/sh_perl.min.js) */
+if(!this.sh_languages){this.sh_languages={}}sh_languages.perl=[[[/\b(?:import)\b/g,"sh_preproc",-1],[/(s)(\{(?:\\\}|[^}])*\}\{(?:\\\}|[^}])*\})([ixsmogce]*)/g,["sh_keyword","sh_regexp","sh_keyword"],-1],[/(s)(\((?:\\\)|[^)])*\)\((?:\\\)|[^)])*\))([ixsmogce]*)/g,["sh_keyword","sh_regexp","sh_keyword"],-1],[/(s)(\[(?:\\\]|[^\]])*\]\[(?:\\\]|[^\]])*\])([ixsmogce]*)/g,["sh_keyword","sh_regexp","sh_keyword"],-1],[/(s)(<.*><.*>)([ixsmogce]*)/g,["sh_keyword","sh_regexp","sh_keyword"],-1],[/(q(?:q?))(\{(?:\\\}|[^}])*\})/g,["sh_keyword","sh_string"],-1],[/(q(?:q?))(\((?:\\\)|[^)])*\))/g,["sh_keyword","sh_string"],-1],[/(q(?:q?))(\[(?:\\\]|[^\]])*\])/g,["sh_keyword","sh_string"],-1],[/(q(?:q?))(<.*>)/g,["sh_keyword","sh_string"],-1],[/(q(?:q?))([^A-Za-z0-9 \t])(.*\2)/g,["sh_keyword","sh_string","sh_string"],-1],[/(s)([^A-Za-z0-9 \t])(.*\2.*\2)([ixsmogce]*(?=[ \t]*(?:\)|;)))/g,["sh_keyword","sh_regexp","sh_regexp","sh_keyword"],-1],[/(s)([^A-Za-z0-9 \t])(.*\2[ \t]*)([^A-Za-z0-9 \t])(.*\4)([ixsmogce]*(?=[ \t]*(?:\)|;)))/g,["sh_keyword","sh_regexp","sh_regexp","sh_regexp","sh_regexp","sh_keyword"],-1],[/#/g,"sh_comment",1],[/\b[+-]?(?:(?:0x[A-Fa-f0-9]+)|(?:(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?))u?(?:(?:int(?:8|16|32|64))|L)?\b/g,"sh_number",-1],[/(?:m|qr)(?=\{)/g,"sh_keyword",2],[/(?:m|qr)(?=#)/g,"sh_keyword",4],[/(?:m|qr)(?=\|)/g,"sh_keyword",6],[/(?:m|qr)(?=@)/g,"sh_keyword",8],[/(?:m|qr)(?=<)/g,"sh_keyword",10],[/(?:m|qr)(?=\[)/g,"sh_keyword",12],[/(?:m|qr)(?=\\)/g,"sh_keyword",14],[/(?:m|qr)(?=\/)/g,"sh_keyword",16],[/"/g,"sh_string",18],[/'/g,"sh_string",19],[/</g,"sh_string",20],[/\/[^\n]*\//g,"sh_string",-1],[/\b(?:chomp|chop|chr|crypt|hex|i|index|lc|lcfirst|length|oct|ord|pack|q|qq|reverse|rindex|sprintf|substr|tr|uc|ucfirst|m|s|g|qw|abs|atan2|cos|exp|hex|int|log|oct|rand|sin|sqrt|srand|my|local|our|delete|each|exists|keys|values|pack|read|syscall|sysread|syswrite|unpack|vec|undef|unless|return|length|grep|sort|caller|continue|dump|eval|exit|goto|last|next|redo|sub|wantarray|pop|push|shift|splice|unshift|split|switch|join|defined|foreach|last|chop|chomp|bless|dbmclose|dbmopen|ref|tie|tied|untie|while|next|map|eq|die|cmp|lc|uc|and|do|if|else|elsif|for|use|require|package|import|chdir|chmod|chown|chroot|fcntl|glob|ioctl|link|lstat|mkdir|open|opendir|readlink|rename|rmdir|stat|symlink|umask|unlink|utime|binmode|close|closedir|dbmclose|dbmopen|die|eof|fileno|flock|format|getc|print|printf|read|readdir|rewinddir|seek|seekdir|select|syscall|sysread|sysseek|syswrite|tell|telldir|truncate|warn|write|alarm|exec|fork|getpgrp|getppid|getpriority|kill|pipe|qx|setpgrp|setpriority|sleep|system|times|x|wait|waitpid)\b/g,"sh_keyword",-1],[/^\=(?:head1|head2|item)/g,"sh_comment",21],[/(?:\$[#]?|@|%)[\/A-Za-z0-9_]+/g,"sh_variable",-1],[/~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\|/g,"sh_symbol",-1],[/\{|\}/g,"sh_cbracket",-1],[/(?:[A-Za-z]|_)[A-Za-z0-9_]*(?=[ \t]*\()/g,"sh_function",-1]],[[/$/g,null,-2]],[[/\{/g,"sh_regexp",3]],[[/[ \t]+#.*/g,"sh_comment",-1],[/\$(?:[A-Za-z0-9_]+|\{[A-Za-z0-9_]+\})/g,"sh_variable",-1],[/\\\{|\\\}|\}/g,"sh_regexp",-3]],[[/#/g,"sh_regexp",5]],[[/[ \t]+#.*/g,"sh_comment",-1],[/\$(?:[A-Za-z0-9_]+|\{[A-Za-z0-9_]+\})/g,"sh_variable",-1],[/\\#|#/g,"sh_regexp",-3]],[[/\|/g,"sh_regexp",7]],[[/[ \t]+#.*/g,"sh_comment",-1],[/\$(?:[A-Za-z0-9_]+|\{[A-Za-z0-9_]+\})/g,"sh_variable",-1],[/\\\||\|/g,"sh_regexp",-3]],[[/@/g,"sh_regexp",9]],[[/[ \t]+#.*/g,"sh_comment",-1],[/\$(?:[A-Za-z0-9_]+|\{[A-Za-z0-9_]+\})/g,"sh_variable",-1],[/\\@|@/g,"sh_regexp",-3]],[[/</g,"sh_regexp",11]],[[/[ \t]+#.*/g,"sh_comment",-1],[/\$(?:[A-Za-z0-9_]+|\{[A-Za-z0-9_]+\})/g,"sh_variable",-1],[/\\<|\\>|>/g,"sh_regexp",-3]],[[/\[/g,"sh_regexp",13]],[[/[ \t]+#.*/g,"sh_comment",-1],[/\$(?:[A-Za-z0-9_]+|\{[A-Za-z0-9_]+\})/g,"sh_variable",-1],[/\\]|\]/g,"sh_regexp",-3]],[[/\\/g,"sh_regexp",15]],[[/[ \t]+#.*/g,"sh_comment",-1],[/\$(?:[A-Za-z0-9_]+|\{[A-Za-z0-9_]+\})/g,"sh_variable",-1],[/\\\\|\\/g,"sh_regexp",-3]],[[/\//g,"sh_regexp",17]],[[/[ \t]+#.*/g,"sh_comment",-1],[/\$(?:[A-Za-z0-9_]+|\{[A-Za-z0-9_]+\})/g,"sh_variable",-1],[/\\\/|\//g,"sh_regexp",-3]],[[/$/g,null,-2],[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/$/g,null,-2],[/\\(?:\\|')/g,null,-1],[/'/g,"sh_string",-2]],[[/$/g,null,-2],[/>/g,"sh_string",-2]],[[/\=cut/g,"sh_comment",-2]]];
+
+/* PHP language (http://shjs.sourceforge.net/lang/sh_php.min.js) */
+if(!this.sh_languages){this.sh_languages={}}sh_languages.php=[[[/\b(?:include|include_once|require|require_once)\b/g,"sh_preproc",-1],[/\/\//g,"sh_comment",1],[/#/g,"sh_comment",1],[/\b[+-]?(?:(?:0x[A-Fa-f0-9]+)|(?:(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?))u?(?:(?:int(?:8|16|32|64))|L)?\b/g,"sh_number",-1],[/"/g,"sh_string",2],[/'/g,"sh_string",3],[/\b(?:and|or|xor|__FILE__|exception|php_user_filter|__LINE__|array|as|break|case|cfunction|class|const|continue|declare|default|die|do|each|echo|else|elseif|empty|enddeclare|endfor|endforeach|endif|endswitch|endwhile|eval|exit|extends|for|foreach|function|global|if|isset|list|new|old_function|print|return|static|switch|unset|use|var|while|__FUNCTION__|__CLASS__|__METHOD__)\b/g,"sh_keyword",-1],[/\/\/\//g,"sh_comment",4],[/\/\//g,"sh_comment",1],[/\/\*\*/g,"sh_comment",9],[/\/\*/g,"sh_comment",10],[/(?:\$[#]?|@|%)[A-Za-z0-9_]+/g,"sh_variable",-1],[/<\?php|~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\|/g,"sh_symbol",-1],[/\{|\}/g,"sh_cbracket",-1],[/(?:[A-Za-z]|_)[A-Za-z0-9_]*(?=[ \t]*\()/g,"sh_function",-1]],[[/$/g,null,-2]],[[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/\\(?:\\|')/g,null,-1],[/'/g,"sh_string",-2]],[[/$/g,null,-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",5,1],[/<!DOCTYPE/g,"sh_preproc",6,1],[/<!--/g,"sh_comment",7],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",8,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",8,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\?>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",2]],[[/>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",2]],[[/-->/g,"sh_comment",-2],[/<!--/g,"sh_comment",7]],[[/(?:\/)?>/g,"sh_keyword",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",2]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",5,1],[/<!DOCTYPE/g,"sh_preproc",6,1],[/<!--/g,"sh_comment",7],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",8,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",8,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]]];
+
+/* python language (http://shjs.sourceforge.net/lang/sh_python.min.js) */
+if(!this.sh_languages){this.sh_languages={}}sh_languages.python=[[[/\b(?:import|from)\b/g,"sh_preproc",-1],[/#/g,"sh_comment",1],[/\b[+-]?(?:(?:0x[A-Fa-f0-9]+)|(?:(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?))u?(?:(?:int(?:8|16|32|64))|L)?\b/g,"sh_number",-1],[/\b(?:and|assert|break|class|continue|def|del|elif|else|except|exec|finally|for|global|if|in|is|lambda|not|or|pass|print|raise|return|try|while)\b/g,"sh_keyword",-1],[/^(?:[\s]*'{3})/g,"sh_comment",2],[/^(?:[\s]*\"{3})/g,"sh_comment",3],[/^(?:[\s]*'(?:[^\\']|\\.)*'[\s]*|[\s]*\"(?:[^\\\"]|\\.)*\"[\s]*)$/g,"sh_comment",-1],[/(?:[\s]*'{3})/g,"sh_string",4],[/(?:[\s]*\"{3})/g,"sh_string",5],[/"/g,"sh_string",6],[/'/g,"sh_string",7],[/~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\||\{|\}/g,"sh_symbol",-1],[/(?:[A-Za-z]|_)[A-Za-z0-9_]*(?=[ \t]*\()/g,"sh_function",-1]],[[/$/g,null,-2]],[[/(?:'{3})/g,"sh_comment",-2]],[[/(?:\"{3})/g,"sh_comment",-2]],[[/(?:'{3})/g,"sh_string",-2]],[[/(?:\"{3})/g,"sh_string",-2]],[[/$/g,null,-2],[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/$/g,null,-2],[/\\(?:\\|')/g,null,-1],[/'/g,"sh_string",-2]]];
+
+/* ruby language (http://shjs.sourceforge.net/lang/sh_ruby.min.js) */
+if(!this.sh_languages){this.sh_languages={}}sh_languages.ruby=[[[/\b(?:require)\b/g,"sh_preproc",-1],[/\b[+-]?(?:(?:0x[A-Fa-f0-9]+)|(?:(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?))u?(?:(?:int(?:8|16|32|64))|L)?\b/g,"sh_number",-1],[/"/g,"sh_string",1],[/'/g,"sh_string",2],[/</g,"sh_string",3],[/\/[^\n]*\//g,"sh_regexp",-1],[/(%r)(\{(?:\\\}|#\{[A-Za-z0-9]+\}|[^}])*\})/g,["sh_symbol","sh_regexp"],-1],[/\b(?:alias|begin|BEGIN|break|case|defined|do|else|elsif|end|END|ensure|for|if|in|include|loop|next|raise|redo|rescue|retry|return|super|then|undef|unless|until|when|while|yield|false|nil|self|true|__FILE__|__LINE__|and|not|or|def|class|module|catch|fail|load|throw)\b/g,"sh_keyword",-1],[/(?:^\=begin)/g,"sh_comment",4],[/(?:\$[#]?|@@|@)(?:[A-Za-z0-9_]+|'|\"|\/)/g,"sh_type",-1],[/[A-Za-z0-9]+(?:\?|!)/g,"sh_normal",-1],[/~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\|/g,"sh_symbol",-1],[/(#)(\{)/g,["sh_symbol","sh_cbracket"],-1],[/#/g,"sh_comment",5],[/\{|\}/g,"sh_cbracket",-1]],[[/$/g,null,-2],[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/$/g,null,-2],[/\\(?:\\|')/g,null,-1],[/'/g,"sh_string",-2]],[[/$/g,null,-2],[/>/g,"sh_string",-2]],[[/^(?:\=end)/g,"sh_comment",-2]],[[/$/g,null,-2]]];
+
+/* sql language (http://shjs.sourceforge.net/lang/sh_sql.min.js) */
+if(!this.sh_languages){this.sh_languages={}}sh_languages.sql=[[[/\b(?:VARCHAR|TINYINT|TEXT|DATE|SMALLINT|MEDIUMINT|INT|BIGINT|FLOAT|DOUBLE|DECIMAL|DATETIME|TIMESTAMP|TIME|YEAR|UNSIGNED|CHAR|TINYBLOB|TINYTEXT|BLOB|MEDIUMBLOB|MEDIUMTEXT|LONGBLOB|LONGTEXT|ENUM|BOOL|BINARY|VARBINARY)\b/gi,"sh_type",-1],[/\b(?:ALL|ASC|AS|ALTER|AND|ADD|AUTO_INCREMENT|BETWEEN|BINARY|BOTH|BY|BOOLEAN|CHANGE|CHECK|COLUMNS|COLUMN|CROSS|CREATE|DATABASES|DATABASE|DATA|DELAYED|DESCRIBE|DESC|DISTINCT|DELETE|DROP|DEFAULT|ENCLOSED|ESCAPED|EXISTS|EXPLAIN|FIELDS|FIELD|FLUSH|FOR|FOREIGN|FUNCTION|FROM|GROUP|GRANT|HAVING|IGNORE|INDEX|INFILE|INSERT|INNER|INTO|IDENTIFIED|IN|IS|IF|JOIN|KEYS|KILL|KEY|LEADING|LIKE|LIMIT|LINES|LOAD|LOCAL|LOCK|LOW_PRIORITY|LEFT|LANGUAGE|MODIFY|NATURAL|NOT|NULL|NEXTVAL|OPTIMIZE|OPTION|OPTIONALLY|ORDER|OUTFILE|OR|OUTER|ON|PROCEDURE|PROCEDURAL|PRIMARY|READ|REFERENCES|REGEXP|RENAME|REPLACE|RETURN|REVOKE|RLIKE|RIGHT|SHOW|SONAME|STATUS|STRAIGHT_JOIN|SELECT|SETVAL|SET|TABLES|TERMINATED|TO|TRAILING|TRUNCATE|TABLE|TEMPORARY|TRIGGER|TRUSTED|UNIQUE|UNLOCK|USE|USING|UPDATE|VALUES|VARIABLES|VIEW|WITH|WRITE|WHERE|ZEROFILL|TYPE|XOR)\b/gi,"sh_keyword",-1],[/"/g,"sh_string",1],[/'/g,"sh_string",2],[/`/g,"sh_string",3],[/#/g,"sh_comment",4],[/\/\/\//g,"sh_comment",5],[/\/\//g,"sh_comment",4],[/\/\*\*/g,"sh_comment",11],[/\/\*/g,"sh_comment",12],[/--/g,"sh_comment",4],[/~|!|%|\^|\*|\(|\)|-|\+|=|\[|\]|\\|:|;|,|\.|\/|\?|&|<|>|\|/g,"sh_symbol",-1],[/\b[+-]?(?:(?:0x[A-Fa-f0-9]+)|(?:(?:[\d]*\.)?[\d]+(?:[eE][+-]?[\d]+)?))u?(?:(?:int(?:8|16|32|64))|L)?\b/g,"sh_number",-1]],[[/"/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]],[[/'/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]],[[/`/g,"sh_string",-2],[/\\./g,"sh_specialchar",-1]],[[/$/g,null,-2]],[[/$/g,null,-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",6,1],[/<!DOCTYPE/g,"sh_preproc",8,1],[/<!--/g,"sh_comment",9],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",10,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",10,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\?>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",7]],[[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",7]],[[/-->/g,"sh_comment",-2],[/<!--/g,"sh_comment",9]],[[/(?:\/)?>/g,"sh_keyword",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",7]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/<\?xml/g,"sh_preproc",6,1],[/<!DOCTYPE/g,"sh_preproc",8,1],[/<!--/g,"sh_comment",9],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",10,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z][A-Za-z0-9]*/g,"sh_keyword",10,1],[/@[A-Za-z]+/g,"sh_type",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]],[[/\*\//g,"sh_comment",-2],[/(?:<?)[A-Za-z0-9_\.\/\-_~]+@[A-Za-z0-9_\.\/\-_~]+(?:>?)|(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_~]+(?:>?)/g,"sh_url",-1],[/(?:TODO|FIXME|BUG)(?:[:]?)/g,"sh_todo",-1]]];
+
+/* URL language (http://shjs.sourceforge.net/lang/sh_url.min.js) */
+if(!this.sh_languages){this.sh_languages={};}
+sh_languages['url']=[[{'regex':/(?:<?)[A-Za-z0-9_\.\/\-_]+@[A-Za-z0-9_\.\/\-_]+(?:>?)/g,'style':'sh_url'},{'regex':/(?:<?)[A-Za-z0-9_]+:\/\/[A-Za-z0-9_\.\/\-_]+(?:>?)/g,'style':'sh_url'}]];
+
+/* XML language (http://shjs.sourceforge.net/lang/sh_xml.min.js) */
+if(!this.sh_languages){this.sh_languages={}}sh_languages.xml=[[[/<\?xml/g,"sh_preproc",1,1],[/<!DOCTYPE/g,"sh_preproc",3,1],[/<!--/g,"sh_comment",4],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)(?:\/)?>/g,"sh_keyword",-1],[/<(?:\/)?[A-Za-z](?:[A-Za-z0-9_:.-]*)/g,"sh_keyword",5,1],[/&(?:[A-Za-z0-9]+);/g,"sh_preproc",-1]],[[/\?>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",2]],[[/\\(?:\\|")/g,null,-1],[/"/g,"sh_string",-2]],[[/>/g,"sh_preproc",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",2]],[[/-->/g,"sh_comment",-2],[/<!--/g,"sh_comment",4]],[[/(?:\/)?>/g,"sh_keyword",-2],[/([^=" \t>]+)([ \t]*)(=?)/g,["sh_type","sh_normal","sh_symbol"],-1],[/"/g,"sh_string",2]]];
+
+
+/* ==========================================================
+ * bootstrap-twipsy.js v1.4.0
+ * http://twitter.github.com/bootstrap/javascript.html#twipsy
+ * Adapted from the original jQuery.tipsy by Jason Frame
+ * ==========================================================
+ * Copyright 2011 Twitter, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================== */
+
+
+!function( $ ) {
+
+  "use strict"
+
+ /* CSS TRANSITION SUPPORT (https://gist.github.com/373874)
+  * ======================================================= */
+
+  var transitionEnd
+
+  $(document).ready(function () {
+
+    $.support.transition = (function () {
+      var thisBody = document.body || document.documentElement
+        , thisStyle = thisBody.style
+        , support = thisStyle.transition !== undefined || thisStyle.WebkitTransition !== undefined || thisStyle.MozTransition !== undefined || thisStyle.MsTransition !== undefined || thisStyle.OTransition !== undefined
+      return support
+    })()
+
+    // set CSS transition event type
+    if ( $.support.transition ) {
+      transitionEnd = "TransitionEnd"
+      if ( $.browser.webkit ) {
+      	transitionEnd = "webkitTransitionEnd"
+      } else if ( $.browser.mozilla ) {
+      	transitionEnd = "transitionend"
+      } else if ( $.browser.opera ) {
+      	transitionEnd = "oTransitionEnd"
+      }
+    }
+
+  })
+
+
+ /* TWIPSY PUBLIC CLASS DEFINITION
+  * ============================== */
+
+  var Twipsy = function ( element, options ) {
+    this.$element = $(element)
+    this.options = options
+    this.enabled = true
+    this.fixTitle()
+  }
+
+  Twipsy.prototype = {
+
+    show: function() {
+      var pos
+        , actualWidth
+        , actualHeight
+        , placement
+        , $tip
+        , tp
+
+      if (this.hasContent() && this.enabled) {
+        $tip = this.tip()
+        this.setContent()
+
+        if (this.options.animate) {
+          $tip.addClass('fade')
+        }
+
+        $tip
+          .remove()
+          .css({ top: 0, left: 0, display: 'block' })
+          .prependTo(document.body)
+
+        pos = $.extend({}, this.$element.offset(), {
+          width: this.$element[0].offsetWidth
+        , height: this.$element[0].offsetHeight
+        })
+
+        actualWidth = $tip[0].offsetWidth
+        actualHeight = $tip[0].offsetHeight
+
+        placement = maybeCall(this.options.placement, this, [ $tip[0], this.$element[0] ])
+
+        switch (placement) {
+          case 'below':
+            tp = {top: pos.top + pos.height + this.options.offset, left: pos.left + pos.width / 2 - actualWidth / 2}
+            break
+          case 'above':
+            tp = {top: pos.top - actualHeight - this.options.offset, left: pos.left + pos.width / 2 - actualWidth / 2}
+            break
+          case 'left':
+            tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth - this.options.offset}
+            break
+          case 'right':
+            tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width + this.options.offset}
+            break
+        }
+
+        $tip
+          .css(tp)
+          .addClass(placement)
+          .addClass('in')
+      }
+    }
+
+  , setContent: function () {
+      var $tip = this.tip()
+      $tip.find('.twipsy-inner')[this.options.html ? 'html' : 'text'](this.getTitle())
+      $tip[0].className = 'twipsy'
+    }
+
+  , hide: function() {
+      var that = this
+        , $tip = this.tip()
+
+      $tip.removeClass('in')
+
+      function removeElement () {
+        $tip.remove()
+      }
+
+      $.support.transition && this.$tip.hasClass('fade') ?
+        $tip.bind(transitionEnd, removeElement) :
+        removeElement()
+    }
+
+  , fixTitle: function() {
+      var $e = this.$element
+      if ($e.attr('title') || typeof($e.attr('data-original-title')) != 'string') {
+        $e.attr('data-original-title', $e.attr('title') || '').removeAttr('title')
+      }
+    }
+
+  , hasContent: function () {
+      return this.getTitle()
+    }
+
+  , getTitle: function() {
+      var title
+        , $e = this.$element
+        , o = this.options
+
+        this.fixTitle()
+
+        if (typeof o.title == 'string') {
+          title = $e.attr(o.title == 'title' ? 'data-original-title' : o.title)
+        } else if (typeof o.title == 'function') {
+          title = o.title.call($e[0])
+        }
+
+        title = ('' + title).replace(/(^\s*|\s*$)/, "")
+
+        return title || o.fallback
+    }
+
+  , tip: function() {
+      return this.$tip = this.$tip || $('<div class="twipsy" />').html(this.options.template)
+    }
+
+  , validate: function() {
+      if (!this.$element[0].parentNode) {
+        this.hide()
+        this.$element = null
+        this.options = null
+      }
+    }
+
+  , enable: function() {
+      this.enabled = true
+    }
+
+  , disable: function() {
+      this.enabled = false
+    }
+
+  , toggleEnabled: function() {
+      this.enabled = !this.enabled
+    }
+
+  , toggle: function () {
+      this[this.tip().hasClass('in') ? 'hide' : 'show']()
+    }
+
+  }
+
+
+ /* TWIPSY PRIVATE METHODS
+  * ====================== */
+
+   function maybeCall ( thing, ctx, args ) {
+     return typeof thing == 'function' ? thing.apply(ctx, args) : thing
+   }
+
+ /* TWIPSY PLUGIN DEFINITION
+  * ======================== */
+
+  $.fn.twipsy = function (options) {
+    $.fn.twipsy.initWith.call(this, options, Twipsy, 'twipsy')
+    return this
+  }
+
+  $.fn.twipsy.initWith = function (options, Constructor, name) {
+    var twipsy
+      , binder
+      , eventIn
+      , eventOut
+
+    if (options === true) {
+      return this.data(name)
+    } else if (typeof options == 'string') {
+      twipsy = this.data(name)
+      if (twipsy) {
+        twipsy[options]()
+      }
+      return this
+    }
+
+    options = $.extend({}, $.fn[name].defaults, options)
+
+    function get(ele) {
+      var twipsy = $.data(ele, name)
+
+      if (!twipsy) {
+        twipsy = new Constructor(ele, $.fn.twipsy.elementOptions(ele, options))
+        $.data(ele, name, twipsy)
+      }
+
+      return twipsy
+    }
+
+    function enter() {
+      var twipsy = get(this)
+      twipsy.hoverState = 'in'
+
+      if (options.delayIn == 0) {
+        twipsy.show()
+      } else {
+        twipsy.fixTitle()
+        setTimeout(function() {
+          if (twipsy.hoverState == 'in') {
+            twipsy.show()
+          }
+        }, options.delayIn)
+      }
+    }
+
+    function leave() {
+      var twipsy = get(this)
+      twipsy.hoverState = 'out'
+      if (options.delayOut == 0) {
+        twipsy.hide()
+      } else {
+        setTimeout(function() {
+          if (twipsy.hoverState == 'out') {
+            twipsy.hide()
+          }
+        }, options.delayOut)
+      }
+    }
+
+    if (!options.live) {
+      this.each(function() {
+        get(this)
+      })
+    }
+
+    if (options.trigger != 'manual') {
+      binder   = options.live ? 'live' : 'bind'
+      eventIn  = options.trigger == 'hover' ? 'mouseenter' : 'focus'
+      eventOut = options.trigger == 'hover' ? 'mouseleave' : 'blur'
+      this[binder](eventIn, enter)[binder](eventOut, leave)
+    }
+
+    return this
+  }
+
+  $.fn.twipsy.Twipsy = Twipsy
+
+  $.fn.twipsy.defaults = {
+    animate: true
+  , delayIn: 0
+  , delayOut: 0
+  , fallback: ''
+  , placement: 'above'
+  , html: false
+  , live: false
+  , offset: 0
+  , title: 'title'
+  , trigger: 'hover'
+  , template: '<div class="twipsy-arrow"></div><div class="twipsy-inner"></div>'
+  }
+
+  $.fn.twipsy.rejectAttrOptions = [ 'title' ]
+
+  $.fn.twipsy.elementOptions = function(ele, options) {
+    var data = $(ele).data()
+      , rejects = $.fn.twipsy.rejectAttrOptions
+      , i = rejects.length
+
+    while (i--) {
+      delete data[rejects[i]]
+    }
+
+    return $.extend({}, options, data)
+  }
+
+}( window.jQuery || window.ender );
+</script>
+
+<script>
+
+    // remove the class "selected" and then add it to the selected radio
+    // toggle the class on the check box
+    // we go for the input rather than the label because we'd have a "double click"
+    $('#toggleControls input').each(function(){
+        $(this).bind('click',function() {
+           $('#toggleControls input').parents('label').removeClass('selected');
+           $(this).parents('label').toggleClass('selected');
+        });
+    })
+    $('#checkBox input').bind('click',function() {
+            $(this).parents('label').toggleClass('selected');
+    })
+
+
+
+    // removing background from the dropzone when content changes
+    // toggle + reveal the snippet (copy it to the <pre>) once the code has been pasted in the textarea
+    $('#dropZone').bind('change',function() {
+        $(this).css('background','whiteSmoke');
+        $('#step4:hidden').slideToggle();
+        $('.doneButton').addClass('primary');
+        $('.startOver').attr('disabled', false);
+        $('.doneButton').attr('disabled', false);
+    });
+
+    // set the background color of the section holding the formatted snippet
+    $('#backgroundColor').bind('change',function() {
+        $('#step4 .wrapper').css('background-color', this.value);
+        $('#backgroundColor').css('background-color', this.value);
+    });
+
+    // DONE BUTTON
+    // reveal the stuff to copy and download
+    // if the user is done we quit everything and go to step #4
+    $('.doneButton').each(function(){
+        $(this).bind('click',function() {
+            // if there is nothing to format we stop here
+            if($('#dropZone').val() == "") return;
+            // we close everything, but the box where users will copy stuff
+            if($('#step4:visible')) $('#step4').slideToggle() ;
+            $('#step5').slideToggle() ;
+            $(this).parents('.wrapper').slideToggle();
+            // to prevent seeing the box growing before it closes
+            $('#theWholeEnchilada').css('height','0') ;
+            // copy the whole enchilada to the HTML textarea
+            $('#htmlToCopy').val( $('#theWholeEnchilada').html() );
+            // reveal the CSS link for the user to copy
+            document.getElementById($('#style_selected').val()).style.display="block";
+        });
+    })
+
+    // START OVER BUTTON (reset)
+    // we reset the forms + clean up the snippet + anchor the #intro + disabled 2 buttons
+    $('.startOver').click(function() {
+        // if($('#dropZone').val() !== '') top.location.reload();
+        $('form').get(0).reset();
+        $('#theWholeEnchilada').html('<pre class="shi_pre"></pre>');
+        $('#toggleControls input').attr('disabled', false);
+        if($('#step4').is(':visible')) $('#step4').slideToggle() ;
+        if($('#step5').is(':visible')) {
+            $('#step1 .wrapper').slideToggle() ;
+            $('#step5').slideToggle() ;
+        }
+        $('.doneButton').attr('disabled', true);
+        $(this).attr('disabled', true);
+        top.location.href="#intro";
+    });
+
+
+    // syntax higlight that stuff
+    // also disable the toggle checkbox as this option has to be selected first
+    var languageSelected,styleSelected,lineNumber=true,collapsing,startCollapsing,boxStyling,boxColorStyling,boxFillStyling,startCode;
+    var shi = function () {
+        if($('#dropZone').val() == ""){
+            $('.doneButton').attr('disabled', true);
+            return;
+        }
+        // we get rid of the intro
+        $('#intro:visible').slideToggle();
+
+        // we flush everything each time in case the user keeps editing code (back and forth) in the dropZone
+        $('#theWholeEnchilada').html('<pre class="shi_pre"></pre>');
+        $('#theWholeEnchilada .shi_pre').text($('#dropZone').val());
+
+        languageSelected = $('#language_selected option:selected').val();
+        styleSelected    = $('#style_selected option:selected').val();
+        lineNumber       = $('#lineNumber').is(':checked');
+        collapsing       = ($('#collapsing').is(':checked') || $('#startCollapsing').is(':checked'));
+        startCollapsing  = $('#startCollapsing').is(':checked');
+        boxStyling       = $('#boxStyling').val();
+        boxColorStyling  = $('#boxColorStyling').val();
+        boxFillStyling   = $('#boxFillStyling').val();
+
+        $("pre.shi_pre").snippet(languageSelected,{style:styleSelected,showNum:lineNumber,collapse:collapsing,startCollapsed:startCollapsing,box:boxStyling,boxColor:boxColorStyling,boxFill:boxFillStyling});
+    };
+
+    // options are selected - style the snippet according to selection
+       $('#noCollapsing, #startCollapsing, #collapsing, #dropZone, #language_selected, #style_selected, #lineNumber, #boxColorStyling, #boxFillStyling').bind('change',shi);
+
+
+    /* TOOLTIPS */
+
+    $(function (){  $('[rel=twipsy]').twipsy({ live: true  })})
+
+
+</script>
+</body>
+</html>
+
